@@ -1,0 +1,117 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+android {
+    compileSdkVersion 26
+
+
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    //Retrofit通过GSON将结果转换为Bean对象
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    //让Retrofit支持RxJava
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    //RxJava
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    //日志拦截器
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+}
+
+def siteUrl = 'https://github.com/myjoybar/Android-Lib-Utils'
+def gitUrl = 'https://github.com/myjoybar/Android-Lib-Utils.git'
+group = "com.joybar.libutils"
+version = "1.0.1"
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                // Add your description here
+                description 'Android lib utils'
+                name ''
+                url siteUrl
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'joybar'
+                        name 'joybar'
+                        email 'myjoybar@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+task javadoc(type: Javadoc) {
+    options.encoding = 'UTF-8'
+    source = 'src/main/java'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+Properties properties = new Properties()
+
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = "Andorid-Maven"
+        name = "AndridLibUtils"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
+//./gradlew install
+//./gradlew bintrayUpload
+
