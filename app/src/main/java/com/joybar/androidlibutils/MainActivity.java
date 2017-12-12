@@ -22,13 +22,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         Logger.json("{ \"key\": 3, \"value\": something}");
+        Logger.json("MainActivity","{ \"key\": 3, \"value\": something}");
 
         Logger.d(Arrays.asList("foo", "bar"));
 
         Map<String, String> map = new HashMap<>();
         map.put("key", "value");
         map.put("key1", "value2");
-
         Logger.d(map);
     }
 }
