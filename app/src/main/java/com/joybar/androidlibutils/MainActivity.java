@@ -15,9 +15,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        testLog();
+    }
+
+
+    private void testLog(){
+        Logger.setLogEnable(true);
+        Logger.setLogLevel(6);
         Logger.d("MainActivity","aaa");
         Logger.w("no thread info and only 1 method");
-
         Logger.i("no thread info and method info");
 
 
@@ -31,4 +37,5 @@ public class MainActivity extends AppCompatActivity {
         map.put("key1", "value2");
         Logger.d(map);
     }
+
 }
