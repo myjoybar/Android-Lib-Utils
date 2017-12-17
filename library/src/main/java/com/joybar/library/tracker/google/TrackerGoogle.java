@@ -32,7 +32,7 @@ public class TrackerGoogle implements ITrackerService {
             // Get tracker.
             mTracker = analytics.newTracker(trackID);
         }
-        return (ITrackerService) mTracker;
+        return this;
     }
 
 

@@ -1,0 +1,74 @@
+{
+  "project_info": {
+    "project_number": "539944612611",
+    "project_id": "firebase-superwifi"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539944612611:android:eb439a1d6c753fe3",
+        "android_client_info": {
+          "package_name": "com.joybar.androidlibutils"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539944612611-oitki1lg46m3rrtebroeirn1i1qjdg8r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR2cLPabe2hmz0EfxtD00yXo6UpLkqtOM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539944612611:android:1d27e164d1db6a52",
+        "android_client_info": {
+          "package_name": "me.joybar.superwifi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539944612611-oitki1lg46m3rrtebroeirn1i1qjdg8r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR2cLPabe2hmz0EfxtD00yXo6UpLkqtOM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-111372634-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,13 +1,16 @@
 package com.joybar.library.tracker;
 
+import android.content.Context;
+
 /**
  * Created by joybar on 2017/7/6.
  */
 
 public class TrackerUtil {
 
-    public static void setTrackerType(@TrackerConfig.TrackerType int trackerType) {
+    public static void createTracker(@TrackerConfig.TrackerType int trackerType, Context context, String trackID) {
         TrackerClient.getInstance().setTrackerType(trackerType);
+        TrackerClient.getInstance().create(context,trackID);
     }
 
     public static void sendScreenName(String screenName) {
