@@ -11,19 +11,28 @@ public class Logger {
 	private static PrinterService printerService = new PrinterService();
 
 
+	/**
+	 *
+	 * @param logEnable
+	 */
 	public static void setLogEnable(boolean logEnable) {
 		LogConfig.LOG_ENABLE = logEnable;
 	}
 
 	/**
-	 * 0~6
 	 *
 	 * @param level
 	 */
-	public static void setLogLevel(int level) {
-		LogConfig.LOG_LEVEL = level; // 0~6
+	public static void setLogLevel(@LogLevel.LogLevelType int level) {
+		LogConfig.LOG_LEVEL = level;
 	}
 
+	public static void setShowTopEnable(boolean logEnable) {
+		LogConfig.SHOW_TOP = logEnable;
+	}
+	public static void setShowBottomEnable(boolean logEnable) {
+		LogConfig.SHOW_BOTTOM = logEnable;
+	}
 
 	public static void v(Object object) {
 		printerService.v(object);

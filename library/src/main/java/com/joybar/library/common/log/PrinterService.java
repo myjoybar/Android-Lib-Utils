@@ -22,122 +22,117 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import static com.joybar.library.common.log.LogLevel.TYPE_DEBUG;
+import static com.joybar.library.common.log.LogLevel.TYPE_ERROR;
+import static com.joybar.library.common.log.LogLevel.TYPE_INFO;
+import static com.joybar.library.common.log.LogLevel.TYPE_VERBOSE;
+import static com.joybar.library.common.log.LogLevel.TYPE_WARN;
+
 /**
  * Created by joybar on 2017/12/12.
  */
 
 public class PrinterService implements IPrinter {
 
-	private final static int VERBOSE = 5; // 不过滤输出所有调试信息 包括 VERBOSE、DEBUG、INFO、WARN、ERROR
-
-	private final static int DEBUG = 4; // debug过滤器，输出DEBUG、INFO、WARN、ERROR调试信息
-
-	private final static int INFO = 3; // info过滤器，输出INFO、WARN、ERROR调试信息
-
-	private final static int WARN = 2; // waring过滤器，输出WARN和ERROR调试信息
-
-	private final static int ERROR = 1; // error过滤器，只输出ERROR调试信息
-
-
 
 	@Override
 	public void v(Object object) {
-		printObject(VERBOSE,null,object);
+		printObject(TYPE_VERBOSE,null,object);
 	}
 
 	@Override
 	public void v(String tag, Object object) {
-		printObject(VERBOSE,tag,object);
+		printObject(TYPE_VERBOSE,tag,object);
 	}
 
 	@Override
 	public void v(String message) {
-		printString(VERBOSE,null,message);
+		printString(TYPE_VERBOSE,null,message);
 	}
 
 	@Override
 	public void v(String tag, String message) {
-		printString(VERBOSE,tag,message);
+		printString(TYPE_VERBOSE,tag,message);
 	}
 
 	@Override
 	public void i(Object object) {
-		printObject(INFO,null,object);
+		printObject(TYPE_INFO,null,object);
 	}
 
 	@Override
 	public void i(String tag, Object object) {
-		printObject(INFO,tag,object);
+		printObject(TYPE_INFO,tag,object);
 	}
 
 	@Override
 	public void i(String message) {
-		printString(INFO,null,message);
+		printString(TYPE_INFO,null,message);
 	}
 
 	@Override
 	public void i(String tag, String message) {
-		printString(INFO,tag,message);
+		printString(TYPE_INFO,tag,message);
 	}
 
 	@Override
 	public void d(Object object) {
-		printObject(DEBUG,null,object);
+		printObject(TYPE_DEBUG,null,object);
 	}
 
 	@Override
 	public void d(String tag, Object object) {
-		printObject(DEBUG,tag,object);
+		printObject(TYPE_DEBUG,tag,object);
 	}
 
 	@Override
 	public void d(String message) {
-		printString(DEBUG,null,message);
+		printString(TYPE_DEBUG,null,message);
 	}
 
 	@Override
 	public void d(String tag, String message) {
-		printString(DEBUG,tag,message);
+		printString(TYPE_DEBUG,tag,message);
 	}
 
 	@Override
 	public void w(Object object) {
-		printObject(WARN,null,object);
+		printObject(TYPE_WARN,null,object);
 	}
 
 	@Override
 	public void w(String tag, Object object) {
-		printObject(WARN,tag,object);
+		printObject(TYPE_WARN,tag,object);
 	}
 
 	@Override
 	public void w(String message) {
-		printString(WARN,null,message);
+		printString(TYPE_WARN,null,message);
 	}
 
 	@Override
 	public void w(String tag, String message) {
-		printString(WARN,tag,message);
+		printString(TYPE_WARN,tag,message);
 	}
 
 	@Override
 	public void e(Object object) {
-		printObject(ERROR,null,object);
+		printObject(TYPE_ERROR,null,object);
 	}
 
 	@Override
 	public void e(String tag, Object object) {
-		printObject(ERROR,tag,object);
+		printObject(TYPE_ERROR,tag,object);
 	}
 
 	@Override
 	public void e(String message) {
-		printString(ERROR,null,message);
+		printString(TYPE_ERROR,null,message);
 	}
 
 	@Override
 	public void e(String tag, String message) {
-		printString(ERROR,tag,message);
+		printString(TYPE_ERROR,tag,message);
 	}
 
 	@Override
@@ -151,11 +146,11 @@ public class PrinterService implements IPrinter {
 			if (json.startsWith("{")) {
 				JSONObject jsonObject = new JSONObject(json);
 				String msg = jsonObject.toString(indent);
-				printString(DEBUG, null,  msg);
+				printString(TYPE_DEBUG, null,  msg);
 			} else if (json.startsWith("[")) {
 				JSONArray jsonArray = new JSONArray(json);
 				String msg = jsonArray.toString(indent);
-				printString(DEBUG, null,msg);
+				printString(TYPE_DEBUG, null,msg);
 			}
 		} catch (JSONException e) {
 			e(e.toString() + "\n\njson = " + json);
@@ -174,28 +169,28 @@ public class PrinterService implements IPrinter {
 	public void json(String tag, String json) {
 		int indent = 4;
 		if (TextUtils.isEmpty(json)) {
-			printString(DEBUG, tag, "JSON{json is empty}");
+			printString(TYPE_DEBUG, tag, "JSON{json is empty}");
 			return;
 		}
 		try {
 			if (json.startsWith("{")) {
 				JSONObject jsonObject = new JSONObject(json);
 				String msg = jsonObject.toString(indent);
-				printString(DEBUG, tag, msg);
+				printString(TYPE_DEBUG, tag, msg);
 			} else if (json.startsWith("[")) {
 				JSONArray jsonArray = new JSONArray(json);
 				String msg = jsonArray.toString(indent);
-				printString(DEBUG, tag, msg);
+				printString(TYPE_DEBUG, tag, msg);
 			}
 		} catch (JSONException e) {
-			printString(DEBUG, tag, e.toString() + "\n\njson = " + json);
+			printString(TYPE_DEBUG, tag, e.toString() + "\n\njson = " + json);
 		}
 	}
 
 	@Override
 	public void xml(String xml) {
 		if (TextUtils.isEmpty(xml)) {
-			printString(DEBUG, null, "XML{xml is empty}");
+			printString(TYPE_DEBUG, null, "XML{xml is empty}");
 			return;
 		}
 		try {
@@ -205,10 +200,10 @@ public class PrinterService implements IPrinter {
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			transformer.transform(xmlInput, xmlOutput);
-			printString(DEBUG, null, xmlOutput.getWriter().toString().replaceFirst(">", ">\n"));
+			printString(TYPE_DEBUG, null, xmlOutput.getWriter().toString().replaceFirst(">", ">\n"));
 		} catch (TransformerException e) {
 			e(e.toString() + "\n\nxml = " + xml);
-			printString(DEBUG, null, e.toString() + "\n\nxml = " + xml);
+			printString(TYPE_DEBUG, null, e.toString() + "\n\nxml = " + xml);
 		}
 	}
 
@@ -223,7 +218,7 @@ public class PrinterService implements IPrinter {
 	@Override
 	public void xml(String tag, String xml) {
 		if (TextUtils.isEmpty(xml)) {
-			printString(DEBUG, tag, "XML{xml is empty}");
+			printString(TYPE_DEBUG, tag, "XML{xml is empty}");
 			return;
 		}
 		try {
@@ -233,14 +228,14 @@ public class PrinterService implements IPrinter {
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			transformer.transform(xmlInput, xmlOutput);
-			printString(DEBUG, tag, xmlOutput.getWriter().toString().replaceFirst(">", ">\n"));
+			printString(TYPE_DEBUG, tag, xmlOutput.getWriter().toString().replaceFirst(">", ">\n"));
 		} catch (TransformerException e) {
-			printString(DEBUG, tag, e.toString() + "\n\nxml = " + xml);
+			printString(TYPE_DEBUG, tag, e.toString() + "\n\nxml = " + xml);
 		}
 	}
 
 
-	public void printObject(int level, String tag, Object object) {
+	public void printObject(@LogLevel.LogLevelType int level, String tag, Object object) {
 		if (!LogConfig.LOG_ENABLE) {
 			return;
 		}
@@ -251,7 +246,7 @@ public class PrinterService implements IPrinter {
 	}
 
 
-	public void printString(int level, String tag, String msg) {
+	public void printString(@LogLevel.LogLevelType int level, String tag, String msg) {
 		if (!LogConfig.LOG_ENABLE) {
 			return;
 		}
@@ -263,7 +258,7 @@ public class PrinterService implements IPrinter {
 
 
 
-	public static void print(int level, String tag, boolean isPart, String msg) {
+	public static void print(@LogLevel.LogLevelType int level, String tag, boolean isPart, String msg) {
 
 		if (TextUtils.isEmpty(msg)) {
 			print(level, tag, false, "Message is empty");
@@ -317,19 +312,19 @@ public class PrinterService implements IPrinter {
 
 	public static void print(int level, String tag, String msg) {
 		switch (level) {
-			case VERBOSE:
+			case TYPE_VERBOSE:
 				Log.v(tag, msg);
 				break;
-			case DEBUG:
+			case TYPE_DEBUG:
 				Log.d(tag, msg);
 				break;
-			case INFO:
+			case TYPE_INFO:
 				Log.i(tag, msg);
 				break;
-			case WARN:
+			case TYPE_WARN:
 				Log.w(tag, msg);
 				break;
-			case ERROR:
+			case TYPE_ERROR:
 				Log.e(tag, msg);
 				break;
 			default:

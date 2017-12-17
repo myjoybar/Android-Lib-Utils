@@ -28,6 +28,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    provided 'com.android.support:support-annotations:27.0.2'
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     //Retrofit通过GSON将结果转换为Bean对象
@@ -44,7 +46,7 @@ dependencies {
 def siteUrl = 'https://github.com/myjoybar/Android-Lib-Utils'
 def gitUrl = 'https://github.com/myjoybar/Android-Lib-Utils.git'
 group = "com.joybar.libutils"
-version = "1.0.1"
+version = "1.0.2"
 
 install {
     repositories.mavenInstaller {

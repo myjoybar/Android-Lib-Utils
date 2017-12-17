@@ -1,5 +1,7 @@
 package com.joybar.library.common.log.config;
 
+import com.joybar.library.common.log.LogLevel;
+
 /**
  * Created by joybar on 2017/12/12.
  */
@@ -11,7 +13,7 @@ public class LogConfig {
 	public static final int LINE_MAX = 1024 * 3;// 每行最大日志长度
 	public static boolean SHOW_TOP = true;
 	public static boolean SHOW_BOTTOM = true;
-	public static int LOG_LEVEL = 6; // 0和6
+	public static int LOG_LEVEL = LogLevel.TYPE_VERBOSE;
 	public static boolean LOG_ENABLE = true;
 
 }
