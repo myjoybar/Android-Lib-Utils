@@ -7,7 +7,6 @@ import java.lang.annotation.RetentionPolicy;
 
 public class LogLevel {
 
-
     public final static int TYPE_VERBOSE = 5; // 不过滤输出所有调试信息
 
     public final static int TYPE_DEBUG = 4; // debug过滤器，输出DEBUG、TYPE_INFO、TYPE_WARN、ERROR调试信息
