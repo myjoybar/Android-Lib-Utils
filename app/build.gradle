@@ -29,4 +29,3 @@ dependencies {
     implementation project(':library')
     compile 'com.android.support:multidex:1.0.1'
 }
-apply plugin: 'com.google.gms.google-services'
