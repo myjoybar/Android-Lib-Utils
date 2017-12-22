@@ -6,7 +6,7 @@ import com.joybar.library.common.log.config.LogConfig;
  * Created by joybar on 2015/01/16.
  */
 
-public class Logger {
+public class L {
 
 	private static PrinterService printerService = new PrinterService();
 
