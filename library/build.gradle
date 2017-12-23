@@ -44,6 +44,11 @@ dependencies {
 
     //Google Analytics
     compile 'com.google.android.gms:play-services-analytics:11.8.0'
+
+    //Google dagger
+    compile 'com.google.dagger:dagger:2.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.1'
+
 }
 
 apply from: 'push.gradle'

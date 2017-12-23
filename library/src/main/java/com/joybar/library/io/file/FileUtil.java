@@ -10,12 +10,12 @@ import java.io.FileOutputStream;
 
 public class FileUtil {
 
-
 	/**
-	 * 保存文件
-	 * @param data 数据内容
-	 * @param fullPathName 绝对路径
-	 * @return true 保存成功，false 保存失败
+	 * save data to file
+	 * @param data the save data
+	 * @param fullPathName  "/res/test.txt"
+	 * @return  <code>true</code> if save successfully.
+	 * Else <code>false</code> fail to save.
 	 */
 	public static boolean saveFile(String data,String fullPathName){
 		int lastIndex = fullPathName.lastIndexOf(File.separator);
@@ -40,11 +40,12 @@ public class FileUtil {
 
 
 	/**
-	 * 保存文件
-	 * @param data 数据内容
-	 * @param path 绝对路径
-	 * @param fileName 文件名
-	 * @return true 保存成功，false 保存失败
+	 * save data to file
+	 * @param data the save data
+	 * @param path "/res/"
+	 * @param fileName "text.txt"
+	 * @return  <code>true</code> if save successfully.
+	 * Else <code>false</code> fail to save.
 	 */
 	public static boolean saveFile(String data,String path,String fileName){
 		File file = new File(path);
@@ -66,9 +67,10 @@ public class FileUtil {
 
 
 	/**
-	 * 读取文件
-	 * @param fullPathName
-	 * @return
+	 * read the file
+	 * @param fullPathName  "/res/test.txt"
+	 * @return  <code>true</code> if read successfully.
+	 * Else <code>false</code> fail to read.
 	 */
 	public static String readFile(String fullPathName) {
 		File file = new File(fullPathName);
@@ -96,10 +98,13 @@ public class FileUtil {
 		}
 		return sb.toString();
 	}
+
 	/**
-	 * 读取文件
-	 * @param path
-	 * @return
+	 * read the file
+	 * @param path "/res/"
+	 * @param fileName "text.txt"
+	 * @return  <code>true</code> if read successfully.
+	 * Else <code>false</code> fail to read.
 	 */
 	public static String readFile(String path,String fileName) {
 		File file = new File(path,fileName);
@@ -129,12 +134,11 @@ public class FileUtil {
 	}
 
 
-
 	/**
-	 * 删除路径下的：文件和文件夹，包括当前文件夹
-	 * @param absoluteFilePath ：绝对路径
-	 * @return true:删除成功，false：删除失败
-	 * 注意：当前路径不存在时，也返回true
+	 * delete all files in this file path
+	 * @param absoluteFilePath the absoluteFilePath
+	 * @return  <code>true</code> if delete successfully.
+	 * Else <code>false</code> fail to delete.
 	 */
 	public static boolean deleteFile(String absoluteFilePath) {
 		File file = new File(absoluteFilePath);

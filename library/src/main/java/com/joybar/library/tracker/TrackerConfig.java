@@ -15,8 +15,8 @@ public class TrackerConfig {
     public final static int TYPE_UMENG = 2;
 
     @IntDef({TYPE_GOOGLE, TYPE_UMENG})
-
     @Retention(RetentionPolicy.SOURCE)
+
     public @interface TrackerType {
     }
 }

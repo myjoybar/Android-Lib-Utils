@@ -19,8 +19,8 @@ public class Utils {
 	/**
 	 * 打印分割线
 	 *
-	 * @param dir
-	 * @return
+	 * @param dir the dir
+	 * @return the tag str
 	 */
 	public static String printDividingLine(int dir) {
 		switch (dir) {
@@ -37,8 +37,8 @@ public class Utils {
 	/**
 	 * 长字符串转化为List
 	 *
-	 * @param msg
-	 * @return
+	 * @param msg the msg
+	 * @return the list
 	 */
 	public static List<String> largeStringToList(String msg) {
 		List<String> stringList = new ArrayList<>();

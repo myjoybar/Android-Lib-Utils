@@ -74,7 +74,7 @@ public class RetrofitClient {
 
 	public <T> T create(final Class<T> service) {
 		if (!isInit()){
-			throw new NullPointerException("RetrofitClient is not be inited");
+			throw new NullPointerException("RetrofitClient is not be initialized");
 		}
 		return mRetrofit.create(service);
 	}

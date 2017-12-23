@@ -161,9 +161,6 @@ public class PrinterService implements IPrinter {
 	 * 采用orhanobut/logger的json解析方案
 	 * source:https://github.com/orhanobut/logger/blob/master/logger/src/main/java/com/orhanobut
 	 * /logger/LoggerPrinter.java#L152
-	 *
-	 * @param tag
-	 * @param json
 	 */
 	@Override
 	public void json(String tag, String json) {
@@ -211,9 +208,6 @@ public class PrinterService implements IPrinter {
 	 * 采用orhanobut/logger的xml解析方案
 	 * source:https://github.com/orhanobut/logger/blob/master/logger/src/main/java/com/orhanobut
 	 * /logger/LoggerPrinter.java#L180
-	 *
-	 * @param tag
-	 * @param xml
 	 */
 	@Override
 	public void xml(String tag, String xml) {
