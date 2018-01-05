@@ -1,9 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-//use greendao
-apply plugin: 'org.greenrobot.greendao'
-
 android {
     compileSdkVersion 26
 
@@ -25,13 +22,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    //greendao config
-    greendao {
-        //versionCode，update
-        schemaVersion 1
-    }
-
 }
 
 dependencies {
@@ -59,10 +49,6 @@ dependencies {
 
     //design
     compile 'com.android.support:design:26.1.0'
-   ////design
-    compile 'org.greenrobot:greendao:3.2.2'
-
 }
-
 apply from: 'push.gradle'
 

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
-
+//use greendao
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -17,6 +18,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    //greendao config
+    greendao {
+        //versionCode，update
+        schemaVersion 1
+        daoPackage 'com.joybar.androidlibutils.data'
+        targetGenDir 'src/main/java'
+    }
+
 }
 
 dependencies {
@@ -28,4 +38,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':library')
     compile 'com.android.support:multidex:1.0.2'
+
+    //greendao
+    compile 'org.greenrobot:greendao:3.2.2'
 }
