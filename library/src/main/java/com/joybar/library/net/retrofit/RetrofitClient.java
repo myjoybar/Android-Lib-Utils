@@ -1,6 +1,5 @@
 package com.joybar.library.net.retrofit;
 
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.joybar.library.net.retrofit.config.RetrofitConfig;
 
 import java.io.IOException;
@@ -64,7 +63,7 @@ public class RetrofitClient {
 				.baseUrl(RetrofitConfig.BASE_URL)
 				.client(okHttpClient)
 				.addConverterFactory(GsonConverterFactory.create())
-				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+				//.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.build();
 	}
 

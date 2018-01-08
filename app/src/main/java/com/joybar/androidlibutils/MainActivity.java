@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.joybar.library.common.log.L;
 import com.joybar.library.io.file.FileUtil;
 import com.joybar.library.io.file.SDCardUtil;
+import com.joybar.library.net.retrofit.config.RetrofitConfig;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
 
         L.d(TAG, "s="+ s);
         L.d(TAG, "s1="+ s1);
+    }
+
+    private void testRetrofit(){
+        RetrofitConfig.BASE_URL = "";
     }
 
 
