@@ -50,8 +50,9 @@ public class RetrofitClient {
 	public void init() {
 		mHeaders = new HashMap<>();
 		HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-		loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
+		if(RetrofitConfig.IS_DEBUG){
+			loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+		}
 		OkHttpClient okHttpClient = new OkHttpClient.Builder()
 				.addInterceptor(mInterceptor)
 				.addInterceptor(loggingInterceptor)

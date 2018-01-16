@@ -1,9 +1,11 @@
 package com.joybar.androidlibutils;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.joybar.library.common.log.L;
+import com.joybar.library.common.wiget.SnackBarUtils;
 import com.joybar.library.io.file.FileUtil;
 import com.joybar.library.io.file.SDCardUtil;
 import com.joybar.library.net.retrofit.config.RetrofitConfig;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         testLog();
         testFile();
+        testSnackBar();
     }
 
 
@@ -69,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void testRetrofit(){
         RetrofitConfig.BASE_URL = "";
+    }
+
+    private void  testSnackBar(){
+        SnackBarUtils.setTextColor(Color.parseColor("#F2C122"));
+        SnackBarUtils.setBgColor(Color.parseColor("#CCCCCC"));
+        SnackBarUtils.showLong(findViewById(R.id.tv),"aaaa");
     }
 
 
