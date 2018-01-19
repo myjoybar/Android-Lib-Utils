@@ -16,9 +16,7 @@ import java.io.ObjectOutputStream;
 
 public class PreferencesHelper {
 
-
     /**
-     *
      * @param context the context
      * @param fileName the file name
      * @param key  the key
