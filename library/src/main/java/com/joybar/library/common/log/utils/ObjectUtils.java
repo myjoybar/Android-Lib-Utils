@@ -1,5 +1,7 @@
 package com.joybar.library.common.log.utils;
 
+import android.os.Bundle;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -57,6 +59,26 @@ public class ObjectUtils {
 			for (Object key : keys) {
 				String itemString = "%s -> %s" + LINE_SEPARATOR;
 				Object value = map.get(key);
+				if (value != null) {
+					if (value instanceof String) {
+						value = "\"" + value + "\"";
+					} else if (value instanceof Character) {
+						value = "\'" + value + "\'";
+					}
+				}
+				msg += String.format(itemString, objectToString(key), objectToString(value));
+			}
+			return msg + "]";
+
+		}
+
+		if (Bundle.class.isAssignableFrom(object.getClass())) {
+			Bundle bundle = (Bundle) object;
+			String msg = bundle.getClass().getName() + " [" + LINE_SEPARATOR;
+			Set<String> keys = bundle.keySet();
+			for (String key : keys) {
+				String itemString = "%s -> %s" + LINE_SEPARATOR;
+				Object value = bundle.get(key);
 				if (value != null) {
 					if (value instanceof String) {
 						value = "\"" + value + "\"";
