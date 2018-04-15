@@ -2,6 +2,9 @@
     package="com.joybar.library">
 
     <application>
+
+        <activity android:name=".permission.PermissionRequestActivity">
+        </activity>
         <!-- GA start-->
         <service
             android:name="com.google.android.gms.analytics.AnalyticsService"

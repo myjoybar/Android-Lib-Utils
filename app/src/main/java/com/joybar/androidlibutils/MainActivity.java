@@ -1,18 +1,23 @@
 package com.joybar.androidlibutils;
 
+import android.Manifest;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.joybar.library.common.log.L;
 import com.joybar.library.common.wiget.SnackBarUtils;
 import com.joybar.library.io.file.FileUtil;
 import com.joybar.library.io.file.SDCardUtil;
 import com.joybar.library.net.retrofit.config.RetrofitConfig;
+import com.joybar.library.permission.PermissionGuide;
+import com.joybar.library.permission.PermissionManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG  = "MainActivity";
+    private static final String TAG  = "PermissionManager";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         testLog();
         testFile();
         testSnackBar();
+        checkPermission();
     }
 
 
@@ -79,6 +85,30 @@ public class MainActivity extends AppCompatActivity {
         SnackBarUtils.setBgColor(Color.parseColor("#CCCCCC"));
         SnackBarUtils.showLong(findViewById(R.id.tv),"aaaa");
     }
+
+    private void checkPermission(){
+
+        //需要请求的权限
+        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
+
+       PermissionManager.getInstance().requestPermissions(this,new String[]{Manifest.permission.CALL_PHONE}, 1);
+        //  PermissionManager.getInstance().requestPermissions(this,permissions, 1);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.d(TAG, "requestCode=" + requestCode+",permissions.length="+permissions.length+",grantResults"+grantResults.length);
+        if (requestCode == 1) {
+            if ( PermissionManager.getInstance().verifyPermissions(grantResults)) {
+                Log.d(TAG, "获取权限成功=" + requestCode);
+            } else {
+                Log.d(TAG, "获取权限失败=" + requestCode);
+                PermissionGuide.showTipsDialog(MainActivity.this,permissions);
+            }
+        }
+    }
+
 
 
 }
