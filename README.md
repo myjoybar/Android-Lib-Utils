@@ -8,7 +8,6 @@ The Android Lib Utils: json, including network,io,permission,tracker...
 |net|retrofit，网络判断相关 ||
 |log|日志打印||
 |permission|权限检查||
-|permission|权限检查||
 |io|db,file,sp||
 |tracker|google analytics||
 |...|...|...|
