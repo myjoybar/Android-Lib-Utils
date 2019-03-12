@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,6 +83,27 @@ public class GsonUtil {
             list.add(cse);
         }
         return Jarray;
+    }
+
+    /**
+     *
+     * @param jsonString
+     * @param cls
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> getObjectList(String jsonString,Class<T> cls){
+        List<T> list = new ArrayList<T>();
+        try {
+            Gson gson = new Gson();
+            JsonArray arry = new JsonParser().parse(jsonString).getAsJsonArray();
+            for (JsonElement jsonElement : arry) {
+                list.add(gson.fromJson(jsonElement, cls));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
 }

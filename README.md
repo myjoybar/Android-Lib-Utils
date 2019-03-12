@@ -17,7 +17,7 @@ The Android Lib Utils: json, including network,io,permission,tracker...
 ### Gradle Dependency
 #####   Add the library to your project build.gradle
 ```gradle
- compile 'com.joybar.libutils:library:1.4.4'
+ compile 'com.joybar.libbase:libbase:1.0.1'
 ```
 ## Sample Usage
 
