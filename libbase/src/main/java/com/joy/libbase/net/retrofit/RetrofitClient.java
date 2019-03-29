@@ -1,7 +1,8 @@
 package com.joy.libbase.net.retrofit;
 
 
-import com.joy.libbase.net.retrofit.config.RetrofitConfig;
+import com.joy.libbase.config.LibConfigManager;
+import com.joy.libbase.net.retrofit.config.OKConfigData;
 import com.joy.libbase.net.retrofit.interceptors.BaseUrlSelectorInterceptor;
 import com.joy.libbase.net.retrofit.interceptors.HeaderInterceptor;
 
@@ -38,16 +39,22 @@ public class RetrofitClient {
 
 	public void init() {
 		HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-		if (RetrofitConfig.IS_PRINT_OK_LOG) {
+
+
+		OKConfigData okConfigData = LibConfigManager.getInstance().getOkConfigData();
+
+		if (okConfigData.isPrintLog()) {
 			loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 		}
+
+
 		OkHttpClient okHttpClient = new OkHttpClient.Builder()
-				.addInterceptor(new HeaderInterceptor())
+				.addInterceptor(new HeaderInterceptor(okConfigData.getOkHttpHeadersMap()))
 				.addInterceptor(new BaseUrlSelectorInterceptor())
 				.addInterceptor(loggingInterceptor)
-				.connectTimeout(RetrofitConfig.CONNECT_TIMEOUT, TimeUnit.SECONDS)
-				.readTimeout(RetrofitConfig.READ_TIMEOUT, TimeUnit.SECONDS)
-				.writeTimeout(RetrofitConfig.WRITE_TIMEOUT, TimeUnit.SECONDS)
+				.connectTimeout(okConfigData.getConnectTimeout(), TimeUnit.SECONDS)
+				.readTimeout(okConfigData.getReadTimeout(), TimeUnit.SECONDS)
+				.writeTimeout(okConfigData.getWriteTimeout(), TimeUnit.SECONDS)
 				.hostnameVerifier(new HostnameVerifier() {
 					@Override
 					public boolean verify(String hostname, SSLSession session) {
@@ -58,7 +65,7 @@ public class RetrofitClient {
 
 
 		mRetrofit = new Retrofit.Builder()
-				.baseUrl(RetrofitConfig.getGooglePayUrl())
+				.baseUrl(okConfigData.getOkHttpBaseUrl())
 				.client(okHttpClient)
 				.addConverterFactory(GsonConverterFactory.create())
 				//.addConverterFactory(ConverterFactory.create())

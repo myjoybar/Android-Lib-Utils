@@ -4,7 +4,7 @@ import com.google.gson.TypeAdapter;
 import com.joy.libbase.net.retrofit.exception.ApiException;
 import com.joy.libbase.net.retrofit.exception.ResponseFormatException;
 import com.joy.libbase.net.retrofit.exception.UnknownException;
-import com.joy.libbase.net.retrofit.testlog.TestOKLog;
+import com.joy.libbase.test.log.LLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +28,7 @@ public class GsonResponseBodyConverter <T> implements Converter<ResponseBody, T>
         String result = value.string();
         JSONObject jsonObject = null;
         try {
-            TestOKLog.print(TAG,"result="+result);
+            LLog.d(TAG,"GsonResponseBodyConverter result="+result);
             jsonObject = new JSONObject(result);
            // throwException(jsonObject);
         } catch (JSONException e) {

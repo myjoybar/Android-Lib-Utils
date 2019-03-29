@@ -9,12 +9,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Map;
 
 /**
  * Created by joybar on 23/12/2017.
  */
 
-public class PreferencesHelper {
+public class SpUtils {
 
     /**
      * @param context the context
@@ -46,20 +47,70 @@ public class PreferencesHelper {
 
     /**
      *
-     * @param context the context
-     * @param fileName the file name
-     * @param key the key
-     * @param defaultObject the defaultObject if you fail to get the object
-     * @return return the object
+     * @param context
+     * @param fileName
+     * @param key
+     * @param defaultObject
+     * @return
      */
     public static Object get(Context context, String fileName, String key, Object defaultObject) {
-        if(context == null) {
-            return defaultObject;
-        } else {
-            SharedPreferences sp = context.getSharedPreferences(fileName, 0);
-            return defaultObject instanceof String?sp.getString(key, (String)defaultObject):(defaultObject instanceof Integer?Integer.valueOf(sp.getInt(key, ((Integer)defaultObject).intValue())):(defaultObject instanceof Boolean?Boolean.valueOf(sp.getBoolean(key, ((Boolean)defaultObject).booleanValue())):(defaultObject instanceof Float?Float.valueOf(sp.getFloat(key, ((Float)defaultObject).floatValue())):(defaultObject instanceof Long?Long.valueOf(sp.getLong(key, ((Long)defaultObject).longValue())):null))));
+        SharedPreferences sp = context.getSharedPreferences(fileName,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String) {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer) {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean) {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float) {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long) {
+            return sp.getLong(key, (Long) defaultObject);
         }
+        return null;
     }
+
+    public static Map<String, ?> getAll(Context context, String fileName) {
+        SharedPreferences sp = context.getSharedPreferences(fileName,
+                Context.MODE_PRIVATE);
+        return sp.getAll();
+    }
+
+    public static boolean contains(Context context, String fileName, String key) {
+        SharedPreferences sp = context.getSharedPreferences(fileName,
+                Context.MODE_PRIVATE);
+        return sp.contains(key);
+    }
+
+
+    /**
+     * 清除所有数据
+     *
+     * @param context
+     */
+    public static void remove(Context context,String fileName) {
+        SharedPreferences sp = context.getSharedPreferences(fileName,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear().commit();
+    }
+
+
+
+    /**
+     * 清除指定数据
+     *
+     * @param context
+     */
+    public static void removeAll(Context context,String fileName,String key) {
+        SharedPreferences sp = context.getSharedPreferences(fileName,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove(key);
+        editor.commit();
+    }
+
 
     /**
      *

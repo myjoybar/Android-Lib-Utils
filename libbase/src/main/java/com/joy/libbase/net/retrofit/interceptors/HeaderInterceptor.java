@@ -13,18 +13,20 @@ import okhttp3.Response;
  */
 
 public class HeaderInterceptor implements Interceptor {
-	private Map<String, String> mHeaders = new HashMap<>();
-	public HeaderInterceptor() {
-		
+	private Map<String, String> mHeadersMap = new HashMap<>();
+
+	public HeaderInterceptor(Map<String, String> headersMap) {
+		mHeadersMap = headersMap;
 	}
+
 	@Override
 	public Response intercept(Chain chain) throws IOException {
 		Request oldRequest = chain.request();
 		Request.Builder build = oldRequest.newBuilder()
 				.method(oldRequest.method(), oldRequest.body())
 				.url(oldRequest.url());
-		for (String k : mHeaders.keySet()) {
-			build.addHeader(k, mHeaders.get(k));
+		for (String k : mHeadersMap.keySet()) {
+			build.addHeader(k, mHeadersMap.get(k));
 		}
 		return chain.proceed(build.build());
 	}

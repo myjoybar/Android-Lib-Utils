@@ -1,6 +1,7 @@
 package com.joy.libbase.base.app.handler;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 
 /**
@@ -8,6 +9,10 @@ import android.os.Message;
  */
 public class GlobalHandler extends Handler {
 	private HandleMsgListener mMsgListener;
+
+	public GlobalHandler() {
+		super(Looper.getMainLooper());
+	}
 
 	private static class GlobalHandlerHolder {
 		private static GlobalHandler INSTANCE = new GlobalHandler();
@@ -21,7 +26,7 @@ public class GlobalHandler extends Handler {
 	@Override
 	public void handleMessage(Message msg) {
 		super.handleMessage(msg);
-		if (getHandleMsgListener() != null){
+		if (getHandleMsgListener() != null) {
 			getHandleMsgListener().handleMsg(msg);
 		}
 	}

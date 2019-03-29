@@ -5,6 +5,6 @@ package com.joy.libbase.base.app.structure;
  */
 public interface BasePresenter {
 
-   // void start();
+   void init();
 
 }

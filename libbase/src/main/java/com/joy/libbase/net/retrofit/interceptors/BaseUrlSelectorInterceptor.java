@@ -1,6 +1,7 @@
 package com.joy.libbase.net.retrofit.interceptors;
 
-import com.joy.libbase.net.retrofit.config.RetrofitConfig;
+import com.joy.libbase.config.LibConfigManager;
+import com.joy.libbase.net.retrofit.config.OKConfigData;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,26 +21,22 @@ public class BaseUrlSelectorInterceptor implements Interceptor {
 		Request originalRequest = chain.request();
 		HttpUrl oldUrl = originalRequest.url();
 		Request.Builder builder = originalRequest.newBuilder();
-		List<String> hostList = originalRequest.headers(RetrofitConfig.BASE_URL_HEADER_TAG);
-		if (hostList != null && hostList.size() > 0) {
-			builder.removeHeader(RetrofitConfig.BASE_URL_HEADER_TAG);
-			String hostName = hostList.get(0);
-			HttpUrl baseURL=null;
-			if (RetrofitConfig.BASE_URL_GOOGLE_PAY_HEADER_TAG.equals(hostName)) {
-				baseURL = HttpUrl.parse(RetrofitConfig.getGooglePayUrl());
-			} else if (RetrofitConfig.BASE_URL_IG_DT_HEADER_TAG.equals(hostName)) {
-				baseURL = HttpUrl.parse(RetrofitConfig.getIGDtUrl());
+
+		OKConfigData okConfigData = null;
+		if((okConfigData = LibConfigManager.getInstance().getOkConfigData())!=null){
+			List<String> hostList = originalRequest.headers(okConfigData.getUrlHeadTag());
+			if (hostList != null && hostList.size() > 0) {
+				builder.removeHeader(okConfigData.getUrlHeadTag());
+				String hostName = hostList.get(0);
+				String setUrl = okConfigData.getOkHttpBaseUrlMap().get(hostName);
+				HttpUrl baseURL = HttpUrl.parse(setUrl);
+				HttpUrl newHttpUrl = oldUrl.newBuilder().scheme(baseURL.scheme()).host(baseURL.host()).port(baseURL.port()).build();
+				Request newRequest = builder.url(newHttpUrl).build();
+				return chain.proceed(newRequest);
 			}
-			HttpUrl newHttpUrl = oldUrl.newBuilder()
-					.scheme(baseURL.scheme())
-					.host(baseURL.host())
-					.port(baseURL.port())
-					.build();
-			Request newRequest = builder.url(newHttpUrl).build();
-			return  chain.proceed(newRequest);
-		}else{
-			return chain.proceed(originalRequest);
 		}
+
+		return chain.proceed(originalRequest);
 
 	}
 }

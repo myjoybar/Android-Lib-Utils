@@ -7,7 +7,7 @@ import com.joy.libbase.net.retrofit.exception.ApiException;
 import com.joy.libbase.net.retrofit.exception.AuthenticationException;
 import com.joy.libbase.net.retrofit.exception.ResponseFormatException;
 import com.joy.libbase.net.retrofit.exception.UnknownException;
-import com.joy.libbase.net.retrofit.testlog.TestOKLog;
+import com.joy.libbase.test.log.LLog;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,11 +40,12 @@ public abstract class RetrofitCallback<T> implements Callback<T> {
 	@Override
 	public void onResponse(Call<T> call, Response<T> response) {
 		if (null != response) {
-			if (response.body() != null) {
-				TestOKLog.print(TAG, "RetrofitCallback response = " + response.body().toString());
+			T responseBody = response.body();
+			if (responseBody != null) {
+				LLog.d(TAG, "RetrofitCallback response = " + responseBody.toString());
 			}
-			if (response.isSuccessful() && response.body() != null) {
-				onSuccess(response.body());
+			if (response.isSuccessful() && responseBody != null) {
+				onSuccess(responseBody);
 			} else {
 				Error error = parseCode(response.code());
 				onFailure(error);
@@ -58,7 +59,7 @@ public abstract class RetrofitCallback<T> implements Callback<T> {
 
 	@Override
 	public void onFailure(Call<T> call, Throwable throwable) {
-		TestOKLog.print(TAG, "RetrofitCallback Throwable = " + throwable.getMessage());
+		LLog.d(TAG, "RetrofitCallback Throwable = " + throwable.getMessage());
 		Error error = parseThrowable(throwable);
 		onFailure(error);
 		if (showToast()) {

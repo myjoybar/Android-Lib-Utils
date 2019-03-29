@@ -6,15 +6,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.joy.libbase.io.mmkv.MMKVManager;
+import com.joy.libok.OkHttpManager;
+import com.joy.libok.config.OKConfigData;
+import com.joy.libok.response.GsonResponseHandler;
+import com.joy.libok.test.log.LLog;
+import com.joybar.androidlibutils.data.HuoYingData;
 import com.joybar.androidlibutils.data1.Student;
 import com.joybar.library.common.log.L;
 import com.joybar.library.common.wiget.SnackBarUtils;
 import com.joybar.library.io.file.FileUtil;
 import com.joybar.library.io.file.SDCardUtil;
 
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
-	private static final String TAG = "PermissionManager";
+	private static final String TAG = "MainActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
 		testFile();
 		testSnackBar();
 		testMMKV();
+		initOkManager();
+		//testOKManager1();
+		testOKManager2();
 	}
 
 
@@ -52,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 		Log.d("MMKVManager", "key_id key6= " + MMKVManager.getInstance().getString("key_id", "key_6", "") + "");
 
 		Student student1 = (Student) MMKVManager.getInstance().getObj("key_obj");
-		Log.d("MMKVManager", "key_obj= " + student1.toString() );
+		Log.d("MMKVManager", "key_obj= " + student1.toString());
 
 	}
 
@@ -103,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void testRetrofit() {
+
 	}
 
 	private void testSnackBar() {
@@ -111,5 +122,42 @@ public class MainActivity extends AppCompatActivity {
 		SnackBarUtils.showLong(findViewById(R.id.tv), "aaaa");
 	}
 
+	private void initOkManager() {
+		OkHttpManager.getInstance().init(new OKConfigData());
+	}
 
+
+	private void testOKManager1() {
+		String url = "https://www.391k.com/api/xapi.ashx/info.json?key=bd_hyrzjjfb4modhj&size=10&page=1";
+		OkHttpManager.getInstance().requestGet(url, null, null, new GsonResponseHandler<HuoYingData>() {
+			@Override
+			public void onSuccess(int statusCode, HuoYingData huoYingData) {
+				LLog.d(TAG, huoYingData.toString());
+			}
+
+			@Override
+			public void onFailure(int errorCode, String errorMsg) {
+
+			}
+		});
+	}
+
+	private void testOKManager2() {
+		String url = "https://www.391k.com/api/xapi.ashx/info.json";
+		HashMap<String, String> paramsMap = new HashMap<>();
+		paramsMap.put("key","bd_hyrzjjfb4modhj");
+		paramsMap.put("size","10");
+		paramsMap.put("page","1");
+		OkHttpManager.getInstance().requestGet(url, paramsMap, null, new GsonResponseHandler<HuoYingData>() {
+			@Override
+			public void onSuccess(int statusCode, HuoYingData huoYingData) {
+				LLog.d(TAG, huoYingData.toString());
+			}
+
+			@Override
+			public void onFailure(int errorCode, String errorMsg) {
+
+			}
+		});
+	}
 }
