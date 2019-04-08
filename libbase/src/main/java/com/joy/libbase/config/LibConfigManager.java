@@ -9,9 +9,9 @@ import com.joy.libbase.base.app.performance.StrictModeManager;
 import com.joy.libbase.base.util.common.check.CheckUtils;
 import com.joy.libbase.config.instance.log.ILogService;
 import com.joy.libbase.config.interfaces.ILibConfigService;
-import com.joy.libbase.net.retrofit.config.OKConfigData;
 import com.joy.libbase.test.log.LLog;
 import com.joy.libbase.tracker.interfaces.ITrackerService;
+import com.joy.libok.configdata.OKConfigData;
 
 public class LibConfigManager {
 	public static final String TAG = "Lib_";

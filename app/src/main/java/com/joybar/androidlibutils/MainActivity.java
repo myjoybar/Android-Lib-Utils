@@ -7,8 +7,8 @@ import android.util.Log;
 
 import com.joy.libbase.io.mmkv.MMKVManager;
 import com.joy.libok.OkHttpManager;
-import com.joy.libok.config.OKConfigData;
-import com.joy.libok.response.GsonResponseHandler;
+import com.joy.libok.configdata.OKConfigData;
+import com.joy.libok.response.responsehandler.GsonResponseHandler;
 import com.joy.libok.test.log.LLog;
 import com.joybar.androidlibutils.data.HuoYingData;
 import com.joybar.androidlibutils.data1.Student;
@@ -129,17 +129,19 @@ public class MainActivity extends AppCompatActivity {
 
 	private void testOKManager1() {
 		String url = "https://www.391k.com/api/xapi.ashx/info.json?key=bd_hyrzjjfb4modhj&size=10&page=1";
-		OkHttpManager.getInstance().requestGet(url, null, null, new GsonResponseHandler<HuoYingData>() {
-			@Override
-			public void onSuccess(int statusCode, HuoYingData huoYingData) {
-				LLog.d(TAG, huoYingData.toString());
-			}
+		OkHttpManager.getInstance()
+				.get(url)
+				.execute(new GsonResponseHandler<HuoYingData>() {
+					@Override
+					public void onSuccess(int statusCode, HuoYingData huoYingData) {
+						LLog.d(TAG, huoYingData.toString());
+					}
 
-			@Override
-			public void onFailure(int errorCode, String errorMsg) {
+					@Override
+					public void onFailure(int errorCode, String errorMsg) {
 
-			}
-		});
+					}
+				});
 	}
 
 	private void testOKManager2() {
@@ -148,16 +150,19 @@ public class MainActivity extends AppCompatActivity {
 		paramsMap.put("key","bd_hyrzjjfb4modhj");
 		paramsMap.put("size","10");
 		paramsMap.put("page","1");
-		OkHttpManager.getInstance().requestGet(url, paramsMap, null, new GsonResponseHandler<HuoYingData>() {
-			@Override
-			public void onSuccess(int statusCode, HuoYingData huoYingData) {
-				LLog.d(TAG, huoYingData.toString());
-			}
+		OkHttpManager.getInstance()
+				.get(url)
+				.addParams(paramsMap)
+				.execute(new GsonResponseHandler<HuoYingData>() {
+					@Override
+					public void onSuccess(int statusCode, HuoYingData huoYingData) {
+						LLog.d(TAG, huoYingData.toString());
+					}
 
-			@Override
-			public void onFailure(int errorCode, String errorMsg) {
+					@Override
+					public void onFailure(int errorCode, String errorMsg) {
 
-			}
-		});
+					}
+				});
 	}
 }

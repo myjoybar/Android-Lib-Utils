@@ -40,6 +40,11 @@ dependencies {
     compile 'com.android.support:multidex:1.0.2'
     //greendao
     compile 'org.greenrobot:greendao:3.2.2'
-    implementation project(':libbase')
-    implementation project(':libok')
+
+    api project(':libbase')
+    api project(':libgpsub')
+
+
+    compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    compile files('libs/commons-codec-1.12.jar')
 }

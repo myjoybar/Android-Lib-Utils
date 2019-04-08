@@ -1,6 +1,6 @@
 package com.joy.libok.client;
 
-import com.joy.libok.config.OKConfigData;
+import com.joy.libok.configdata.OKConfigData;
 import com.joy.libok.interceptors.BaseUrlSelectorInterceptor;
 import com.joy.libok.interceptors.HeaderInterceptor;
 
@@ -32,6 +32,7 @@ public class OkClient {
 			loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 		}
 		mOkHttpClient = new OkHttpClient.Builder()
+				.cookieJar(okConfigData.getCookiesJar())
 				.addInterceptor(new HeaderInterceptor(okConfigData.getOkHttpHeadersMap()))
 				.addInterceptor(new BaseUrlSelectorInterceptor(okConfigData))
 				.addInterceptor(loggingInterceptor)

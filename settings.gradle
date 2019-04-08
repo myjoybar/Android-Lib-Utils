@@ -1,1 +1,1 @@
-include ':app', ':library', ':libbase', ':libok'
+include ':app', ':library', ':libbase', ':libok', ':libgpsub'

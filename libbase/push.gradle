@@ -5,9 +5,8 @@ def siteUrl = 'https://github.com/myjoybar/Android-Lib-Utils'
 def gitUrl = 'https://github.com/myjoybar/Android-Lib-Utils.git'
 group = "com.joybar.libbase"
 def packageName = 'libbase'
-def artifactIdName = 'baseutils'
 def projectDescription = 'A android base utils'
-version = "1.0.5"
+version = "1.0.8"
 
 install {
     repositories.mavenInstaller {
@@ -15,7 +14,6 @@ install {
         pom {
             project {
                 packaging 'aar'
-                artifactId = artifactIdName
                 // Add your description here
                 description projectDescription
                 name ''

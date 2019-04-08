@@ -48,7 +48,8 @@ public class LLog {
 	}
 
 	private static String getThreadName() {
-		return Thread.currentThread().getName() + "___";
+		//return Thread.currentThread().getName() + "___";
+		return "";
 
 	}
 

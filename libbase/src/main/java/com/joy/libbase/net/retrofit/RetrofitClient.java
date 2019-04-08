@@ -2,17 +2,10 @@ package com.joy.libbase.net.retrofit;
 
 
 import com.joy.libbase.config.LibConfigManager;
-import com.joy.libbase.net.retrofit.config.OKConfigData;
-import com.joy.libbase.net.retrofit.interceptors.BaseUrlSelectorInterceptor;
-import com.joy.libbase.net.retrofit.interceptors.HeaderInterceptor;
-
-import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
+import com.joy.libok.client.OkClient;
+import com.joy.libok.configdata.OKConfigData;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -38,35 +31,29 @@ public class RetrofitClient {
 
 
 	public void init() {
-		HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
 
 
 		OKConfigData okConfigData = LibConfigManager.getInstance().getOkConfigData();
-
-		if (okConfigData.isPrintLog()) {
-			loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-		}
-
-
-		OkHttpClient okHttpClient = new OkHttpClient.Builder()
-				.addInterceptor(new HeaderInterceptor(okConfigData.getOkHttpHeadersMap()))
-				.addInterceptor(new BaseUrlSelectorInterceptor())
-				.addInterceptor(loggingInterceptor)
-				.connectTimeout(okConfigData.getConnectTimeout(), TimeUnit.SECONDS)
-				.readTimeout(okConfigData.getReadTimeout(), TimeUnit.SECONDS)
-				.writeTimeout(okConfigData.getWriteTimeout(), TimeUnit.SECONDS)
-				.hostnameVerifier(new HostnameVerifier() {
-					@Override
-					public boolean verify(String hostname, SSLSession session) {
-						return true;
-					}
-				})
-				.build();
-
+		OkClient.getInstance().init(okConfigData);
+		OkHttpClient client = OkClient.getInstance().getOkHttpClient();
+//		OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//				.addInterceptor(new HeaderInterceptor(okConfigData.getOkHttpHeadersMap()))
+//				.addInterceptor(new BaseUrlSelectorInterceptor(okConfigData))
+//				.addInterceptor(loggingInterceptor)
+//				.connectTimeout(okConfigData.getConnectTimeout(), TimeUnit.SECONDS)
+//				.readTimeout(okConfigData.getReadTimeout(), TimeUnit.SECONDS)
+//				.writeTimeout(okConfigData.getWriteTimeout(), TimeUnit.SECONDS)
+//				.hostnameVerifier(new HostnameVerifier() {
+//					@Override
+//					public boolean verify(String hostname, SSLSession session) {
+//						return true;
+//					}
+//				})
+//				.build();
 
 		mRetrofit = new Retrofit.Builder()
 				.baseUrl(okConfigData.getOkHttpBaseUrl())
-				.client(okHttpClient)
+				.client(client)
 				.addConverterFactory(GsonConverterFactory.create())
 				//.addConverterFactory(ConverterFactory.create())
 				//.addCallAdapterFactory(RxJava2CallAdapterFactory.create())

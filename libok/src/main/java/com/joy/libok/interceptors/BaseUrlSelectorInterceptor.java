@@ -1,6 +1,6 @@
 package com.joy.libok.interceptors;
 
-import com.joy.libok.config.OKConfigData;
+import com.joy.libok.configdata.OKConfigData;
 
 import java.io.IOException;
 import java.util.List;

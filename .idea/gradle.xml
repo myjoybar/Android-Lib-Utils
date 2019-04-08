@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/libbase" />
+            <option value="$PROJECT_DIR$/libgpsub" />
             <option value="$PROJECT_DIR$/libok" />
             <option value="$PROJECT_DIR$/library" />
           </set>

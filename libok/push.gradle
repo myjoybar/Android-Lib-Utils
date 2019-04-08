@@ -3,11 +3,11 @@ apply plugin: 'com.jfrog.bintray'
 
 def siteUrl = 'https://github.com/myjoybar/Android-Lib-Utils'
 def gitUrl = 'https://github.com/myjoybar/Android-Lib-Utils.git'
-group = "com.joybar.libbase"
-def packageName = 'libbase'
+group = "com.joybar.libok"
+def packageName = 'libok'
 def artifactIdName = 'libok'
 def projectDescription = 'A android okhttp utils'
-version = "1.0.5"
+version = "1.0.1"
 
 install {
     repositories.mavenInstaller {
