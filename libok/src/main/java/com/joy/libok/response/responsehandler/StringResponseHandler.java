@@ -1,36 +1,22 @@
 package com.joy.libok.response.responsehandler;
 
-import com.google.gson.Gson;
-import com.google.gson.internal.$Gson$Types;
 import com.joy.libok.handler.OKGlobalHandler;
 import com.joy.libok.response.callback.IResponseCallBackHandler;
 import com.joy.libok.test.log.LLog;
 
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 import okhttp3.Headers;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public abstract class GsonResponseHandler<T> implements IResponseCallBackHandler {
-	private static String TAG = "GsonResponseHandler";
-	private Type mType;
+public abstract class StringResponseHandler implements IResponseCallBackHandler {
+	private static String TAG = "StringResponseHandler";
 
-	private Type getType() {
-		return mType;
+
+	public StringResponseHandler() {
+
 	}
-
-	public GsonResponseHandler() {
-		Type type = getClass().getGenericSuperclass();    //反射获取带泛型的class
-		if (type instanceof Class) {
-			throw new RuntimeException("Missing type parameter.");
-		}
-		ParameterizedType parameter = (ParameterizedType) type;      //获取所有泛型
-		mType = $Gson$Types.canonicalize(parameter.getActualTypeArguments()[0]);  //将泛型转为type
-	}
-
 
 	@Override
 	public void onStart() {
@@ -50,6 +36,7 @@ public abstract class GsonResponseHandler<T> implements IResponseCallBackHandler
 			});
 			return;
 		}
+
 		String responseBodyStr = "";
 		try {
 			responseBodyStr = responseBody.string();
@@ -63,32 +50,21 @@ public abstract class GsonResponseHandler<T> implements IResponseCallBackHandler
 				}
 			});
 			return;
+
 		} finally {
 			responseBody.close();
 		}
 		LLog.d(TAG, " responseBody.string =   " + responseBodyStr);
-		try {
-			Gson gson = new Gson();
-			final T gsonResponse = (T) gson.fromJson(responseBodyStr, getType());
-			OKGlobalHandler.getInstance().post(new Runnable() {
-				@Override
-				public void run() {
-					LLog.d(TAG, "parse the json response data success");
-					onSuccess(response.code(), gsonResponse);
-				}
-			});
 
-		} catch (final Exception e) {
-			OKGlobalHandler.getInstance().post(new Runnable() {
-				@Override
-				public void run() {
-					LLog.d(TAG, "parse the json response data  occurs error");
-					onFailure(0, String.format("parse the json response data occurs error, error msg = %s", e.getMessage()));
+		final String finalResponseBodyStr = responseBodyStr;
+		OKGlobalHandler.getInstance().post(new Runnable() {
+			@Override
+			public void run() {
+				onSuccess(response.code(), finalResponseBodyStr);
+			}
+		});
 
-				}
-			});
 
-		}
 	}
 
 	@Override
@@ -101,7 +77,7 @@ public abstract class GsonResponseHandler<T> implements IResponseCallBackHandler
 
 	}
 
-	public abstract void onSuccess(int statusCode, T response);
+	public abstract void onSuccess(int statusCode, String response);
 
 
 	@Override

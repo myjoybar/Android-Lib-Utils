@@ -1,4 +1,4 @@
-package com.joy.libbase.base.util.common;
+package com.joy.libbase.base.util.common.app;
 
 import android.os.Build;
 

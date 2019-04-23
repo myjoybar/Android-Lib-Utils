@@ -26,11 +26,16 @@ public class OkClient {
 
 
 	public void init(OKConfigData okConfigData) {
+
+		if (null != mOkHttpClient) {
+			return;
+		}
 		HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
 
 		if (okConfigData.isPrintLog()) {
 			loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 		}
+
 		mOkHttpClient = new OkHttpClient.Builder()
 				.cookieJar(okConfigData.getCookiesJar())
 				.addInterceptor(new HeaderInterceptor(okConfigData.getOkHttpHeadersMap()))
@@ -50,6 +55,9 @@ public class OkClient {
 	}
 
 	public OkHttpClient getOkHttpClient() {
+		if (null == mOkHttpClient) {
+			throw new RuntimeException("You must init OkClient before use it");
+		}
 		return mOkHttpClient;
 	}
 }

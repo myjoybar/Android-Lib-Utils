@@ -7,7 +7,7 @@ group = "com.joybar.gpsub"
 def packageName = 'gpsub'
 def artifactIdName = 'gpsub'
 def projectDescription = 'google play subscible uttils'
-version = "1.0.0"
+version = "1.0.1"
 
 install {
     repositories.mavenInstaller {
@@ -15,7 +15,6 @@ install {
         pom {
             project {
                 packaging 'aar'
-                artifactId = artifactIdName
                 // Add your description here
                 description projectDescription
                 name ''

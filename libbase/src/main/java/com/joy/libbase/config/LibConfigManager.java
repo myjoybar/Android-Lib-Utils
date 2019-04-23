@@ -9,6 +9,7 @@ import com.joy.libbase.base.app.performance.StrictModeManager;
 import com.joy.libbase.base.util.common.check.CheckUtils;
 import com.joy.libbase.config.instance.log.ILogService;
 import com.joy.libbase.config.interfaces.ILibConfigService;
+import com.joy.libbase.io.mmkv.MMKVManager;
 import com.joy.libbase.test.log.LLog;
 import com.joy.libbase.tracker.interfaces.ITrackerService;
 import com.joy.libok.configdata.OKConfigData;
@@ -32,6 +33,7 @@ public class LibConfigManager {
 		CheckUtils.checkNotNull(mLibConfigService);
 		this.mLibApplication = application;
 		this.mLibConfigService = mLibConfigService;
+		MMKVManager.getInstance().init(application);
 		initLeakCanary();
 		initStrictMode();
 		LLog.setENABLE(mLibConfigService.isEnableLog());

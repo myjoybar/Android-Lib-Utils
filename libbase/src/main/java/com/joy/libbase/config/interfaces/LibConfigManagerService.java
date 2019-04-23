@@ -5,11 +5,11 @@ import android.app.Application;
 public abstract class LibConfigManagerService {
 
 	public void initAll(Application application){
+		initLibConfigManager(application);
 		initTracker(application);
 		initLog();
 		registerLifeCycle(application);
 		registerComponentCallbacks(application);
-		initLibConfigManager(application);
 		initCrashTracker(application);
 	}
 

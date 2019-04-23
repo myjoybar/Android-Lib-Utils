@@ -9,7 +9,6 @@ import okhttp3.OkHttpClient;
 
 public class OkHttpManager {
 
-	private OkHttpClient mOkHttpClient;
 
 	private static class OkHttpManagerHolder {
 		private static OkHttpManager INSTANCE = new OkHttpManager();
@@ -21,12 +20,11 @@ public class OkHttpManager {
 
 	public void init(OKConfigData okConfigData) {
 		OkClient.getInstance().init(okConfigData);
-		mOkHttpClient = OkClient.getInstance().getOkHttpClient();
 	}
 
 
 	public OkHttpClient getOkHttpClient() {
-		return mOkHttpClient;
+		return OkClient.getInstance().getOkHttpClient();
 	}
 
 	public GetRequestBuilder get(String url) {

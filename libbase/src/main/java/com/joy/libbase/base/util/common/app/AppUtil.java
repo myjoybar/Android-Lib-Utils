@@ -1,6 +1,5 @@
-package com.joybar.library.common.app;
+package com.joy.libbase.base.util.common.app;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;

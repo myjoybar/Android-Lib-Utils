@@ -3,15 +3,12 @@ package com.joybar.androidlibutils;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
-import com.joy.libbase.io.mmkv.MMKVManager;
 import com.joy.libok.OkHttpManager;
 import com.joy.libok.configdata.OKConfigData;
 import com.joy.libok.response.responsehandler.GsonResponseHandler;
 import com.joy.libok.test.log.LLog;
 import com.joybar.androidlibutils.data.HuoYingData;
-import com.joybar.androidlibutils.data1.Student;
 import com.joybar.library.common.log.L;
 import com.joybar.library.common.wiget.SnackBarUtils;
 import com.joybar.library.io.file.FileUtil;
@@ -38,31 +35,31 @@ public class MainActivity extends AppCompatActivity {
 
 
 	private void testMMKV() {
-		MMKVManager.getInstance().init(this);
-		MMKVManager.getInstance().put("key1", "11");
-		MMKVManager.getInstance().put("key2", true);
-		MMKVManager.getInstance().put("key3", 111);
-		MMKVManager.getInstance().put("key4", 20f);
-		MMKVManager.getInstance().put("key5", 55d);
-
-		MMKVManager.getInstance().put("key_id", "key_6", "value id");
-
-		Student student = new Student();
-		student.setAge(27);
-		student.setName("Tom");
-
-		MMKVManager.getInstance().saveObj("key_obj", student);
-
-
-		Log.d("MMKVManager", "key1= " + MMKVManager.getInstance().getString("key1", ""));
-		Log.d("MMKVManager", "key2= " + MMKVManager.getInstance().getBoolean("key2", false) + "");
-		Log.d("MMKVManager", "key3= " + MMKVManager.getInstance().getInt("key3", 0) + "");
-		Log.d("MMKVManager", "key4= " + MMKVManager.getInstance().getFloat("key4", 0) + "");
-		Log.d("MMKVManager", "key5= " + MMKVManager.getInstance().getDouble("key5", 0) + "");
-		Log.d("MMKVManager", "key_id key6= " + MMKVManager.getInstance().getString("key_id", "key_6", "") + "");
-
-		Student student1 = (Student) MMKVManager.getInstance().getObj("key_obj");
-		Log.d("MMKVManager", "key_obj= " + student1.toString());
+//		MMKVManager.getInstance().init(this);
+//		MMKVManager.getInstance().put("key1", "11");
+//		MMKVManager.getInstance().put("key2", true);
+//		MMKVManager.getInstance().put("key3", 111);
+//		MMKVManager.getInstance().put("key4", 20f);
+//		MMKVManager.getInstance().put("key5", 55d);
+//
+//		MMKVManager.getInstance().put("key_id", "key_6", "value id");
+//
+//		Student student = new Student();
+//		student.setAge(27);
+//		student.setName("Tom");
+//
+//		MMKVManager.getInstance().saveObj("key_obj", student);
+//
+//
+//		Log.d("MMKVManager", "key1= " + MMKVManager.getInstance().getString("key1", ""));
+//		Log.d("MMKVManager", "key2= " + MMKVManager.getInstance().getBoolean("key2", false) + "");
+//		Log.d("MMKVManager", "key3= " + MMKVManager.getInstance().getInt("key3", 0) + "");
+//		Log.d("MMKVManager", "key4= " + MMKVManager.getInstance().getFloat("key4", 0) + "");
+//		Log.d("MMKVManager", "key5= " + MMKVManager.getInstance().getDouble("key5", 0) + "");
+//		Log.d("MMKVManager", "key_id key6= " + MMKVManager.getInstance().getString("key_id", "key_6", "") + "");
+//
+//		Student student1 = (Student) MMKVManager.getInstance().getObj("key_obj");
+//		Log.d("MMKVManager", "key_obj= " + student1.toString());
 
 	}
 

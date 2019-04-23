@@ -29,5 +29,4 @@ dependencies {
     // google 订阅
     implementation 'com.android.billingclient:billing:1.2'
 }
-
-apply from: 'push.gradle'
+//apply from: 'push.gradle'

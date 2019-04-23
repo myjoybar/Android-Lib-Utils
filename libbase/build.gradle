@@ -49,8 +49,8 @@ dependencies {
     // Optional, if you use support library fragments:
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
     // mmkv
-     implementation 'com.tencent:mmkv:1.0.17'
-     api project(':libok')
+     api 'com.tencent:mmkv:1.0.17'
+     api 'com.joybar.libok:libok:1.0.6'
 }
 
-//apply from: 'push.gradle'
+apply from: 'push.gradle'

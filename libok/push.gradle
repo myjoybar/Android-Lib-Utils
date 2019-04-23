@@ -7,7 +7,7 @@ group = "com.joybar.libok"
 def packageName = 'libok'
 def artifactIdName = 'libok'
 def projectDescription = 'A android okhttp utils'
-version = "1.0.1"
+version = "1.0.6"
 
 install {
     repositories.mavenInstaller {
@@ -15,7 +15,6 @@ install {
         pom {
             project {
                 packaging 'aar'
-                artifactId = artifactIdName
                 // Add your description here
                 description projectDescription
                 name ''
