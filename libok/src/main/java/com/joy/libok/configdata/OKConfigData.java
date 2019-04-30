@@ -1,8 +1,11 @@
 package com.joy.libok.configdata;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.CookieJar;
+import okhttp3.Interceptor;
 
 public class OKConfigData {
 
@@ -14,6 +17,7 @@ public class OKConfigData {
 	private int readTimeout = 10;
 	private int writeTimeout = 10;
 	private boolean isPrintLog = true;
+	private List<Interceptor> interceptors = new ArrayList<>();
 	private CookieJar cookiesJar = CookieJar.NO_COOKIES;
 
 
@@ -87,5 +91,13 @@ public class OKConfigData {
 
 	public void setCookiesJar(CookieJar cookiesJar) {
 		this.cookiesJar = cookiesJar;
+	}
+
+	public List<Interceptor> getInterceptors() {
+		return interceptors;
+	}
+
+	public void setInterceptors(List<Interceptor> interceptors) {
+		this.interceptors = interceptors;
 	}
 }

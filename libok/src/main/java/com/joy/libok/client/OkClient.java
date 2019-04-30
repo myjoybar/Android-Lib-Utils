@@ -4,11 +4,13 @@ import com.joy.libok.configdata.OKConfigData;
 import com.joy.libok.interceptors.BaseUrlSelectorInterceptor;
 import com.joy.libok.interceptors.HeaderInterceptor;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -35,22 +37,29 @@ public class OkClient {
 		if (okConfigData.isPrintLog()) {
 			loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 		}
+		OkHttpClient.Builder builder = new OkHttpClient.Builder();
+		List<Interceptor> interceptors = okConfigData.getInterceptors();
+		for (Interceptor interceptor : interceptors) {
+			builder.addInterceptor(interceptor);
+		}
+		builder
+			.cookieJar(okConfigData.getCookiesJar())
+			.addInterceptor(new HeaderInterceptor(okConfigData.getOkHttpHeadersMap()))
+			.addInterceptor(new BaseUrlSelectorInterceptor(okConfigData))
+			.addInterceptor(loggingInterceptor)
+			.connectTimeout(okConfigData.getConnectTimeout(), TimeUnit.SECONDS)
+			.readTimeout(okConfigData.getReadTimeout(), TimeUnit.SECONDS)
+			.writeTimeout(okConfigData.getWriteTimeout(), TimeUnit.SECONDS)
+			.hostnameVerifier(new HostnameVerifier() {
+				@Override
+				public boolean verify(String hostname, SSLSession session) {
+					return true;
+				}
+			});
 
-		mOkHttpClient = new OkHttpClient.Builder()
-				.cookieJar(okConfigData.getCookiesJar())
-				.addInterceptor(new HeaderInterceptor(okConfigData.getOkHttpHeadersMap()))
-				.addInterceptor(new BaseUrlSelectorInterceptor(okConfigData))
-				.addInterceptor(loggingInterceptor)
-				.connectTimeout(okConfigData.getConnectTimeout(), TimeUnit.SECONDS)
-				.readTimeout(okConfigData.getReadTimeout(), TimeUnit.SECONDS)
-				.writeTimeout(okConfigData.getWriteTimeout(), TimeUnit.SECONDS)
-				.hostnameVerifier(new HostnameVerifier() {
-					@Override
-					public boolean verify(String hostname, SSLSession session) {
-						return true;
-					}
-				})
-				.build();
+
+		mOkHttpClient =builder.build();
+
 
 	}
 

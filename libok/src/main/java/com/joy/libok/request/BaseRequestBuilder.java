@@ -14,7 +14,7 @@ import okhttp3.Response;
 public abstract class BaseRequestBuilder<T extends BaseRequestBuilder> {
 
 	protected final String url;
-
+	protected  String tag;
 	protected Map<String, String> mMapHeaders;
 	protected Map<String, String> mMapParams;
 
@@ -35,6 +35,13 @@ public abstract class BaseRequestBuilder<T extends BaseRequestBuilder> {
 		return (T) this;
 
 	}
+
+	public T tag(String tag) {
+		this.tag = tag;
+		return (T) this;
+
+	}
+
 
 	public abstract Response execute() throws IOException;
 	public abstract void execute(IResponseCallBackHandler responseCallBackHandler);

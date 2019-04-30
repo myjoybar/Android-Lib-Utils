@@ -5,6 +5,8 @@ import com.joy.libok.configdata.OKConfigData;
 import com.joy.libok.request.GetRequestBuilder;
 import com.joy.libok.request.PostRequestBuilder;
 
+import okhttp3.Call;
+import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
 
 public class OkHttpManager {
@@ -35,6 +37,18 @@ public class OkHttpManager {
 		return new PostRequestBuilder(url);
 	}
 
-
+	public void cancel(String tag) {
+		Dispatcher dispatcher = getOkHttpClient().dispatcher();
+		for (Call call : dispatcher.queuedCalls()) {
+			if (tag.equals(call.request().tag())) {
+				call.cancel();
+			}
+		}
+		for (Call call : dispatcher.runningCalls()) {
+			if (tag.equals(call.request().tag())) {
+				call.cancel();
+			}
+		}
+	}
 
 }
