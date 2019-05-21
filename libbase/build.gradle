@@ -50,7 +50,8 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
     // mmkv
      api 'com.tencent:mmkv:1.0.17'
-     api 'com.joybar.libok:libok:1.0.6'
+//     api 'com.joybar.libok:libok:1.0.8'
+     api project(':libok')
 }
 
 apply from: 'push.gradle'

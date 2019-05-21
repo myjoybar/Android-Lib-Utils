@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.joy.libok.OkHttpManager;
 import com.joy.libok.response.callback.IResponseCallBackHandler;
-import com.joy.libok.response.callback.OKCallback;
+import com.joy.libok.response.callback.CommonOKCallback;
 
 import java.io.IOException;
 
@@ -53,7 +53,7 @@ public class PostRequestBuilder<T extends PostRequestBuilder> extends BaseReques
 		requestBuilder.post(body);
 		Request request = requestBuilder.build();
 		Call call = OkHttpManager.getInstance().getOkHttpClient().newCall(request);
-		call.enqueue(new OKCallback(responseCallBackHandler));
+		call.enqueue(new CommonOKCallback(responseCallBackHandler));
 
 	}
 

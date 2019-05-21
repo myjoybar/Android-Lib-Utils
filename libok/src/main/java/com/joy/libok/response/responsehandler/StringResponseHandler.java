@@ -6,7 +6,6 @@ import com.joy.libok.test.log.LLog;
 
 import java.io.IOException;
 
-import okhttp3.Headers;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -20,6 +19,11 @@ public abstract class StringResponseHandler implements IResponseCallBackHandler 
 
 	@Override
 	public void onStart() {
+
+	}
+
+	@Override
+	public void onCancel() {
 
 	}
 
@@ -72,10 +76,6 @@ public abstract class StringResponseHandler implements IResponseCallBackHandler 
 		LLog.d(TAG, String.format("errorCode= %s , errorMsg = %s", errorCode, errorMsg));
 	}
 
-	@Override
-	public void onGetHeaders(Headers headers) {
-
-	}
 
 	public abstract void onSuccess(int statusCode, String response);
 
@@ -86,7 +86,7 @@ public abstract class StringResponseHandler implements IResponseCallBackHandler 
 	}
 
 	@Override
-	public void onEnd() {
+	public void onFinish() {
 
 	}
 }

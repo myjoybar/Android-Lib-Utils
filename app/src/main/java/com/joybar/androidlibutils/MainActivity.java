@@ -3,18 +3,22 @@ package com.joybar.androidlibutils;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.joy.libok.OkHttpManager;
 import com.joy.libok.configdata.OKConfigData;
+import com.joy.libok.interceptors.ClearInvalidResponseInterceptor;
 import com.joy.libok.response.responsehandler.GsonResponseHandler;
 import com.joy.libok.test.log.LLog;
 import com.joybar.androidlibutils.data.HuoYingData;
+import com.joybar.androidlibutils.ok.OKActivity;
 import com.joybar.library.common.log.L;
 import com.joybar.library.common.wiget.SnackBarUtils;
 import com.joybar.library.io.file.FileUtil;
 import com.joybar.library.io.file.SDCardUtil;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,13 +28,26 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		testLog();
-		testFile();
-		testSnackBar();
-		testMMKV();
-		initOkManager();
-		//testOKManager1();
-		testOKManager2();
+		findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				testLog();
+				testFile();
+				testSnackBar();
+				testMMKV();
+				initOkManager();
+				testOKManager1();
+				//testOKManager2();
+			}
+		});
+
+		findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				OKActivity.launch(MainActivity.this);
+			}
+		});
+
 	}
 
 
@@ -116,27 +133,32 @@ public class MainActivity extends AppCompatActivity {
 	private void testSnackBar() {
 		SnackBarUtils.setTextColor(Color.parseColor("#F2C122"));
 		SnackBarUtils.setBgColor(Color.parseColor("#CCCCCC"));
-		SnackBarUtils.showLong(findViewById(R.id.tv), "aaaa");
+		SnackBarUtils.showLong(findViewById(R.id.btn), "aaaa");
 	}
 
 	private void initOkManager() {
-		OkHttpManager.getInstance().init(new OKConfigData());
+		OKConfigData okConfigData = new OKConfigData();
+		okConfigData.getInterceptors().add(new ClearInvalidResponseInterceptor());
+		OkHttpManager.getInstance().init(okConfigData );
 	}
 
 
 	private void testOKManager1() {
 		String url = "https://www.391k.com/api/xapi.ashx/info.json?key=bd_hyrzjjfb4modhj&size=10&page=1";
+		Map<String, String> mMapHeaders = new HashMap<>();
+		mMapHeaders.put("Date",System.currentTimeMillis()+"");
 		OkHttpManager.getInstance()
 				.get(url)
+				.addHeaders(mMapHeaders)
 				.execute(new GsonResponseHandler<HuoYingData>() {
 					@Override
 					public void onSuccess(int statusCode, HuoYingData huoYingData) {
-						LLog.d(TAG, huoYingData.toString());
+						LLog.d(TAG,"onSuccess = "+ huoYingData.toString());
 					}
 
 					@Override
 					public void onFailure(int errorCode, String errorMsg) {
-
+						L.d(TAG, "onFailure,errorMsg = " +errorMsg);
 					}
 				});
 	}
@@ -160,6 +182,8 @@ public class MainActivity extends AppCompatActivity {
 					public void onFailure(int errorCode, String errorMsg) {
 
 					}
+
+
 				});
 	}
 }

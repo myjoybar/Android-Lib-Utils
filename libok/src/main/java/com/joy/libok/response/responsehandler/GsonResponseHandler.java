@@ -1,5 +1,7 @@
 package com.joy.libok.response.responsehandler;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Types;
 import com.joy.libok.handler.OKGlobalHandler;
@@ -10,7 +12,6 @@ import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import okhttp3.Headers;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -32,13 +33,23 @@ public abstract class GsonResponseHandler<T> implements IResponseCallBackHandler
 	}
 
 
+
+
 	@Override
 	public void onStart() {
 
 	}
 
+
+	@Override
+	public void onCancel() {
+
+	}
+
 	@Override
 	public void onSuccess(final Response response) {
+		Log.d(TAG, "response.isSuccessful() = " +response.isSuccessful());
+
 		ResponseBody responseBody = response.body();
 		if (null == responseBody) {
 			OKGlobalHandler.getInstance().post(new Runnable() {
@@ -50,6 +61,7 @@ public abstract class GsonResponseHandler<T> implements IResponseCallBackHandler
 			});
 			return;
 		}
+
 		String responseBodyStr = "";
 		try {
 			responseBodyStr = responseBody.string();
@@ -96,10 +108,6 @@ public abstract class GsonResponseHandler<T> implements IResponseCallBackHandler
 		LLog.d(TAG, String.format("errorCode= %s , errorMsg = %s", errorCode, errorMsg));
 	}
 
-	@Override
-	public void onGetHeaders(Headers headers) {
-
-	}
 
 	public abstract void onSuccess(int statusCode, T response);
 
@@ -110,7 +118,7 @@ public abstract class GsonResponseHandler<T> implements IResponseCallBackHandler
 	}
 
 	@Override
-	public void onEnd() {
+	public void onFinish() {
 
 	}
 }

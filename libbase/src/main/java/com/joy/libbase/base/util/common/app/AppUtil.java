@@ -111,6 +111,7 @@ public class AppUtil {
 		intent.setAction("android.intent.action.VIEW");
 		Uri content_uri_browsers = Uri.parse(url);
 		intent.setData(content_uri_browsers);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(intent);
 	}
 

@@ -12,12 +12,13 @@ import javax.net.ssl.SSLSession;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.OkHttpClient.Builder;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 public class OkClient {
 
 	private OkHttpClient mOkHttpClient;
-
+	Builder builder;
 	private static class OkClientHolder {
 		private static OkClient INSTANCE = new OkClient();
 	}
@@ -37,7 +38,7 @@ public class OkClient {
 		if (okConfigData.isPrintLog()) {
 			loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 		}
-		OkHttpClient.Builder builder = new OkHttpClient.Builder();
+		builder = new Builder();
 		List<Interceptor> interceptors = okConfigData.getInterceptors();
 		for (Interceptor interceptor : interceptors) {
 			builder.addInterceptor(interceptor);
@@ -58,7 +59,7 @@ public class OkClient {
 			});
 
 
-		mOkHttpClient =builder.build();
+		mOkHttpClient = builder.build();
 
 
 	}

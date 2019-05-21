@@ -10,11 +10,11 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class OKCallback<T> implements Callback {
-	private static String TAG = "IOKCallback";
+public class CommonOKCallback<T> implements Callback {
+	private static String TAG = "CommonOKCallback";
 	private final IResponseCallBackHandler mResponseHandler;
 
-	public OKCallback(IResponseCallBackHandler responseHandler) {
+	public CommonOKCallback(IResponseCallBackHandler responseHandler) {
 		mResponseHandler = responseHandler;
 		OKGlobalHandler.getInstance().post(new Runnable() {
 			@Override
@@ -31,7 +31,7 @@ public class OKCallback<T> implements Callback {
 			@Override
 			public void run() {
 				mResponseHandler.onFailure(0, e.getMessage());
-				mResponseHandler.onEnd();
+				mResponseHandler.onFinish();
 			}
 		});
 	}
@@ -45,8 +45,7 @@ public class OKCallback<T> implements Callback {
 			OKGlobalHandler.getInstance().post(new Runnable() {
 				@Override
 				public void run() {
-					mResponseHandler.onGetHeaders(response.headers());
-					mResponseHandler.onEnd();
+					mResponseHandler.onFinish();
 				}
 			});
 
@@ -58,7 +57,7 @@ public class OKCallback<T> implements Callback {
 					@Override
 					public void run() {
 						mResponseHandler.onFailure(response.code(),responseStr);
-						mResponseHandler.onEnd();
+						mResponseHandler.onFinish();
 					}
 				});
 
