@@ -26,115 +26,118 @@ public class DrawableUtils {
 
 	/**
 	 * 创建普通Shape，无边框
+	 *
 	 * @param context
 	 * @param shape
 	 * @param fillColor
 	 * @param roundRadius
 	 * @return
 	 */
-	public static GradientDrawable createShape(Context context, int shape, String fillColor, float roundRadius) {
+	public static GradientDrawable createShape(Context context, int shape, String fillColor, float[] roundRadius) {
 
 		GradientDrawable gd = new GradientDrawable();
 		if (!TextUtils.isEmpty(fillColor)) {
 			gd.setColor(Color.parseColor(fillColor));
 		}
-		gd.setCornerRadius(convertDipToPx(context, roundRadius));
+		gd.setCornerRadii(convertRadiusToPx(context, roundRadius));
 		gd.setShape(shape);
 		return gd;
 	}
 
 	/**
 	 * 创建普通Shape有边框
-	 *  @param context
-	 * @param shape   GradientDrawable.RECTANGLE
+	 *
+	 * @param context
+	 * @param shape       GradientDrawable.RECTANGLE
 	 * @param fillColor
 	 * @param strokeWidth
 	 * @param strokeColor
 	 * @param roundRadius
 	 * @return
 	 */
-	public static GradientDrawable createShape(Context context, int shape, String fillColor, int strokeWidth, String strokeColor, float roundRadius) {
+	public static GradientDrawable createShape(Context context, int shape, String fillColor, int strokeWidth, String strokeColor,
+											   float[] roundRadius) {
 
 		GradientDrawable gd = new GradientDrawable();
 		if (!TextUtils.isEmpty(fillColor)) {
 			gd.setColor(Color.parseColor(fillColor));
 		}
 		if (!TextUtils.isEmpty(strokeColor)) {
-			gd.setStroke((int)convertDipToPx(context, strokeWidth), Color.parseColor(strokeColor));
+			gd.setStroke((int) convertDipToPx(context, strokeWidth), Color.parseColor(strokeColor));
 		}
-		gd.setCornerRadius(convertDipToPx(context, roundRadius));
+		gd.setCornerRadii(convertRadiusToPx(context, roundRadius));
 		gd.setShape(shape);
 		return gd;
 	}
 
 	/**
 	 * 创建渐变Shape, 无边框
+	 *
 	 * @param context
 	 * @param shape
 	 * @param gradientColors
 	 * @param gradientType
-	 * @param orientation  GradientDrawable.Orientation.TOP_BOTTOM
+	 * @param orientation    GradientDrawable.Orientation.TOP_BOTTOM
 	 * @param roundRadius
 	 * @return
 	 */
-	public static GradientDrawable createGradientShape(Context context, int shape,int gradientColors[], int gradientType,
-													   GradientDrawable.Orientation orientation, float roundRadius) {
+	public static GradientDrawable createGradientShape(Context context, int shape, int[] gradientColors, int gradientType,
+													   GradientDrawable.Orientation orientation, float[] roundRadius) {
 
 		GradientDrawable gd = new GradientDrawable(orientation, gradientColors);
 		gd.setGradientType(gradientType);//GradientDrawable.LINEAR_GRADIENT
-		gd.setCornerRadius(convertDipToPx(context, roundRadius));
+		gd.setCornerRadii(convertRadiusToPx(context, roundRadius));
 		gd.setShape(shape);// GradientDrawable.RECTANGLE
 		return gd;
 	}
 
 
-
 	/**
 	 * 创建渐变Shape,有边框
+	 *
 	 * @param context
-	 * @param shape  GradientDrawable.RECTANGLE
+	 * @param shape          GradientDrawable.RECTANGLE
 	 * @param gradientColors
 	 * @param gradientType
-	 * @param orientation  GradientDrawable.Orientation.TOP_BOTTOM
+	 * @param orientation    GradientDrawable.Orientation.TOP_BOTTOM
 	 * @param strokeWidth
 	 * @param strokeColor
 	 * @param roundRadius
 	 * @return
 	 */
-	public static GradientDrawable createGradientShape(Context context, int shape,int gradientColors[], int gradientType,
-													   GradientDrawable.Orientation orientation, int strokeWidth, String strokeColor, float roundRadius) {
+	public static GradientDrawable createGradientShape(Context context, int shape, int[] gradientColors, int gradientType,
+													   GradientDrawable.Orientation orientation, int strokeWidth, String strokeColor,
+													   float[] roundRadius) {
 
 		GradientDrawable gd = new GradientDrawable(orientation, gradientColors);
 		gd.setGradientType(gradientType);//GradientDrawable.LINEAR_GRADIENT
 		if (!TextUtils.isEmpty(strokeColor)) {
-			gd.setStroke((int)convertDipToPx(context, strokeWidth), Color.parseColor(strokeColor));
+			gd.setStroke((int) convertDipToPx(context, strokeWidth), Color.parseColor(strokeColor));
 		}
-		gd.setCornerRadius(convertDipToPx(context, roundRadius));
+		gd.setCornerRadii(convertRadiusToPx(context, roundRadius));
 		gd.setShape(shape);
 		return gd;
 	}
 
 
-
-	/** 创建GradientDrawable的基本方法
+	/**
+	 * 创建GradientDrawable的基本方法
+	 *
 	 * @param context
 	 * @param fillColor
 	 * @param gradientColors int colors[] = { 0xff255779 , 0xff3e7492, 0xffa6c0cd };
 	 * @param gradientType   GradientDrawable.LINEAR_GRADIENT
-	 * @param orientation  GradientDrawable.Orientation.TOP_BOTTOM
+	 * @param orientation    GradientDrawable.Orientation.TOP_BOTTOM
 	 * @param Shape          GradientDrawable.RECTANGLE
 	 * @param strokeWidth
 	 * @param strokeColor
-	 * @param rLeftTop
-	 * @param rRightTop
-	 * @param rRightBottom
-	 * @param rLeftBottom
+	 * @param roundRadius
 	 * @return
 	 */
-	private static GradientDrawable createGradientDrawable(Context context, int Shape,String fillColor, int gradientColors[], int gradientType,
-														   GradientDrawable.Orientation orientation,
-														   float strokeWidth, String strokeColor, float rLeftTop, float rRightTop, float rRightBottom,
-														   float rLeftBottom) {
+	private static GradientDrawable createGradientDrawable(Context context, int Shape, String fillColor, int gradientColors[], int gradientType,
+														   GradientDrawable.Orientation orientation, float strokeWidth, String strokeColor,
+														   float[] roundRadius
+														  ) {
 
 		GradientDrawable gd = null;
 		if (null == gradientColors) {
@@ -152,17 +155,15 @@ public class DrawableUtils {
 			gd.setColor(Color.parseColor(fillColor));// 设置颜色
 		}
 		gd.setShape(Shape);// GradientDrawable.RECTANGLE
-		float rLeftTopPx = convertDipToPx(context, rLeftTop);
-		float rRightTopPx = convertDipToPx(context, rRightTop);
-		float rRightBottomPx = convertDipToPx(context, rRightBottom);
-		float rLeftBottomPx = convertDipToPx(context, rLeftBottom);
-		float[] r = {rLeftTopPx, rLeftTopPx, rRightTopPx, rRightTopPx, rRightBottomPx, rRightBottomPx, rLeftBottomPx, rLeftBottomPx};
-		gd.setCornerRadii(r);
+//		float rLeftTopPx = convertDipToPx(context, rLeftTop);
+//		float rRightTopPx = convertDipToPx(context, rRightTop);
+//		float rRightBottomPx = convertDipToPx(context, rRightBottom);
+//		float rLeftBottomPx = convertDipToPx(context, rLeftBottom);
+//		float[] r = {rLeftTopPx, rLeftTopPx, rRightTopPx, rRightTopPx, rRightBottomPx, rRightBottomPx, rLeftBottomPx, rLeftBottomPx};
+		gd.setCornerRadii(convertRadiusToPx(context, roundRadius));
 		//gd.setCornerRadius(rLeftTopPx);
 		return gd;
 	}
-
-
 
 
 	/**
@@ -174,12 +175,10 @@ public class DrawableUtils {
 	 * @param radius
 	 * @return
 	 */
-	public static StateListDrawable createSelectorDrawable(Context context, int Shape,String colorNormal, String colorPressed, float radius) {
+	public static StateListDrawable createSelectorDrawable(Context context, int Shape, String colorNormal, String colorPressed, float[] radius) {
 		StateListDrawable sd = new StateListDrawable();
-		Drawable normal = colorNormal == null ? null : createGradientDrawable(context, Shape,colorNormal, null, 0, null, 0, null,
-				radius, radius, radius, radius);
-		Drawable pressed = colorPressed == null ? null : createGradientDrawable(context,Shape,colorPressed, null, 0, null, 0, null,
-				radius, radius, radius, radius);
+		Drawable normal = colorNormal == null ? null : createGradientDrawable(context, Shape, colorNormal, null, 0, null, 0, null, radius);
+		Drawable pressed = colorPressed == null ? null : createGradientDrawable(context, Shape, colorPressed, null, 0, null, 0, null, radius);
 
 //		sd.addState(new int[] { android.R.attr.state_enabled,
 //				android.R.attr.state_focused }, pressed);
@@ -197,6 +196,7 @@ public class DrawableUtils {
 
 	/**
 	 * 根据颜色创建selector Drawable,有渐变，无边框
+	 *
 	 * @param context
 	 * @param Shape
 	 * @param gradientColorsNormal
@@ -205,14 +205,13 @@ public class DrawableUtils {
 	 * @param orientation
 	 * @return
 	 */
-	public static StateListDrawable createSelectorDrawable(Context context, int Shape,  int gradientColorsNormal[], int gradientColorsPressed[], int gradientType,
-														   GradientDrawable.Orientation orientation,
-														   float radius) {
+	public static StateListDrawable createSelectorDrawable(Context context, int Shape, int gradientColorsNormal[], int gradientColorsPressed[],
+														   int gradientType, GradientDrawable.Orientation orientation, float[] radius) {
 		StateListDrawable sd = new StateListDrawable();
-		Drawable normal =  createGradientDrawable(context, GradientDrawable.RECTANGLE,"", gradientColorsNormal, gradientType, orientation, 0, "",
-				radius, radius, radius, radius);
-		Drawable pressed = createGradientDrawable(context, GradientDrawable.RECTANGLE,"", gradientColorsPressed, gradientType, orientation, 0, "",
-				radius, radius, radius, radius);
+		Drawable normal = createGradientDrawable(context, GradientDrawable.RECTANGLE, "", gradientColorsNormal, gradientType, orientation, 0, "",
+				radius);
+		Drawable pressed = createGradientDrawable(context, GradientDrawable.RECTANGLE, "", gradientColorsPressed, gradientType, orientation, 0, "",
+				radius);
 
 //		sd.addState(new int[] { android.R.attr.state_enabled,
 //				android.R.attr.state_focused }, pressed);
@@ -230,6 +229,7 @@ public class DrawableUtils {
 
 	/**
 	 * 根据颜色创建selector Drawable,无渐变，有边框
+	 *
 	 * @param context
 	 * @param Shape
 	 * @param colorNormal
@@ -239,13 +239,11 @@ public class DrawableUtils {
 	 * @param radius
 	 * @return
 	 */
-	public static StateListDrawable createSelectorDrawable(Context context, int Shape,  String colorNormal, String colorPressed,
-														   float strokeWidth, String strokeColor,  float radius) {
+	public static StateListDrawable createSelectorDrawable(Context context, int Shape, String colorNormal, String colorPressed, float strokeWidth,
+														   String strokeColor, float[] radius) {
 		StateListDrawable sd = new StateListDrawable();
-		Drawable normal =  createGradientDrawable(context, Shape,colorNormal, null, 0, null, strokeWidth, strokeColor,
-				radius, radius, radius, radius);
-		Drawable pressed = createGradientDrawable(context, Shape,colorPressed, null, 0, null, strokeWidth, strokeColor,
-				radius, radius, radius, radius);
+		Drawable normal = createGradientDrawable(context, Shape, colorNormal, null, 0, null, strokeWidth, strokeColor, radius);
+		Drawable pressed = createGradientDrawable(context, Shape, colorPressed, null, 0, null, strokeWidth, strokeColor, radius);
 
 //		sd.addState(new int[] { android.R.attr.state_enabled,
 //				android.R.attr.state_focused }, pressed);
@@ -262,10 +260,9 @@ public class DrawableUtils {
 	}
 
 
-
-
 	/**
 	 * 根据颜色创建selector Drawable,有渐变，有边框
+	 *
 	 * @param context
 	 * @param Shape
 	 * @param gradientColorsNormal
@@ -277,14 +274,14 @@ public class DrawableUtils {
 	 * @param radius
 	 * @return
 	 */
-	public static StateListDrawable createSelectorDrawable(Context context, int Shape, int gradientColorsNormal[], int gradientColorsPressed[], int gradientType,
-														   GradientDrawable.Orientation orientation,
-														   int strokeWidth, String strokeColor,  float radius) {
+	public static StateListDrawable createSelectorDrawable(Context context, int Shape, int gradientColorsNormal[], int gradientColorsPressed[],
+														   int gradientType, GradientDrawable.Orientation orientation, int strokeWidth,
+														   String strokeColor, float[] radius) {
 		StateListDrawable sd = new StateListDrawable();
-		Drawable normal =  createGradientDrawable(context,Shape,"", gradientColorsNormal, gradientType, orientation, strokeWidth, strokeColor,
-				radius, radius, radius, radius);
-		Drawable pressed = createGradientDrawable(context, Shape,"", gradientColorsPressed, gradientType, orientation, strokeWidth, strokeColor,
-				radius, radius, radius, radius);
+		Drawable normal = createGradientDrawable(context, Shape, "", gradientColorsNormal, gradientType, orientation, strokeWidth, strokeColor,
+				radius);
+		Drawable pressed = createGradientDrawable(context, Shape, "", gradientColorsPressed, gradientType, orientation, strokeWidth, strokeColor,
+				radius);
 
 //		sd.addState(new int[] { android.R.attr.state_enabled,
 //				android.R.attr.state_focused }, pressed);
@@ -299,9 +296,6 @@ public class DrawableUtils {
 		sd.addState(new int[]{}, normal); //常规状态的背景
 		return sd;
 	}
-
-
-
 
 
 	/**
@@ -325,7 +319,7 @@ public class DrawableUtils {
 
 	}
 
-	private StateListDrawable addStateDrawable(Context context,  int idNormal, int idPressed, int idFocused) {
+	private StateListDrawable addStateDrawable(Context context, int idNormal, int idPressed, int idFocused) {
 		StateListDrawable sd = new StateListDrawable();
 		Drawable normal = idNormal == -1 ? null : context.getResources().getDrawable(idNormal);
 		Drawable pressed = idPressed == -1 ? null : context.getResources().getDrawable(idPressed);
@@ -340,7 +334,6 @@ public class DrawableUtils {
 		sd.addState(new int[]{}, normal);
 		return sd;
 	}
-
 
 
 	/**
@@ -494,9 +487,17 @@ public class DrawableUtils {
 		return bitmap;
 	}
 
-	public static float convertDipToPx(Context context,float dip) {
+	public static float convertDipToPx(Context context, float dip) {
 		float scale = context.getResources().getDisplayMetrics().density;
 		return (int) (dip * scale + 0.5f * (dip >= 0 ? 1 : -1));
+	}
+
+	private static float[] convertRadiusToPx(Context context, float[] radius) {
+		radius[0] = convertDipToPx(context, radius[0]);
+		radius[1] = convertDipToPx(context, radius[1]);
+		radius[2] = convertDipToPx(context, radius[2]);
+		radius[3] = convertDipToPx(context, radius[3]);
+		return radius;
 	}
 
 }

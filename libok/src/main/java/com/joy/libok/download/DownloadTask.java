@@ -101,9 +101,11 @@ public class DownloadTask {
 
 	}
 
-
-
 	public void doStart(DownloadTaskListener mDownloadTaskListener) {
+		doStart(mDownloadTaskListener,false);
+	}
+
+	public void doStart(DownloadTaskListener mDownloadTaskListener,boolean forcedUpdated) {
 		if (mStatus == DownloadStatus.STATUS_DOWNLOADING || mStatus == DownloadStatus.STATUS_FINISH) {
 			return;
 		}
@@ -113,6 +115,7 @@ public class DownloadTask {
 				.download(mUrl)
 				.setFilePath(getFilePath(mUrl))
 				.setCompleteBytes(mCompleteBytes)
+				.setForcedUpdated(forcedUpdated)
 				.execute(mDownloadResponseHandler);
 
 	}
