@@ -1,8 +1,10 @@
 package com.joy.libok.client;
 
+
 import com.joy.libok.configdata.OKConfigData;
 import com.joy.libok.interceptors.BaseUrlSelectorInterceptor;
 import com.joy.libok.interceptors.HeaderInterceptor;
+import com.joy.libok.interceptors.MockDataInterceptor;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -43,10 +45,15 @@ public class OkClient {
 		for (Interceptor interceptor : interceptors) {
 			builder.addInterceptor(interceptor);
 		}
+		List<Interceptor> netInterceptors = okConfigData.getNetInterceptors();
+		for (Interceptor interceptor : netInterceptors) {
+			builder.addNetworkInterceptor(interceptor);
+		}
 		builder
 			.cookieJar(okConfigData.getCookiesJar())
 			.addInterceptor(new HeaderInterceptor(okConfigData.getOkHttpHeadersMap()))
 			.addInterceptor(new BaseUrlSelectorInterceptor(okConfigData))
+			.addInterceptor(new MockDataInterceptor(okConfigData))
 			.addInterceptor(loggingInterceptor)
 			.connectTimeout(okConfigData.getConnectTimeout(), TimeUnit.SECONDS)
 			.readTimeout(okConfigData.getReadTimeout(), TimeUnit.SECONDS)
@@ -58,6 +65,9 @@ public class OkClient {
 				}
 			});
 
+		if (okConfigData.getCache() != null) {
+			builder.cache(okConfigData.getCache());
+		}
 
 		mOkHttpClient = builder.build();
 
@@ -69,5 +79,9 @@ public class OkClient {
 			throw new RuntimeException("You must init OkClient before use it");
 		}
 		return mOkHttpClient;
+	}
+
+	public Builder getBuilder() {
+		return builder;
 	}
 }

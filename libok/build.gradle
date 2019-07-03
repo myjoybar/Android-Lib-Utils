@@ -34,4 +34,4 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
 
 }
-//apply from: 'push.gradle'
+apply from: 'push.gradle'

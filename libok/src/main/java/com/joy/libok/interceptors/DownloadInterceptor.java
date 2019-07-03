@@ -1,17 +1,14 @@
 package com.joy.libok.interceptors;
 
-import com.joy.libok.response.callback.IResponseCallBackHandler;
-
 import java.io.IOException;
 
+import com.joy.libok.response.callback.IResponseCallBackHandler;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * @author Joy
- * @description
- * @date 2019/5/20
+ * Created by joybar on 2019/2/12.
  */
 public class DownloadInterceptor implements Interceptor {
 	private IResponseCallBackHandler mListener;

@@ -9,9 +9,7 @@ import okhttp3.Interceptor;
 import okhttp3.Response;
 
 /**
- * @author Joy
- * @description
- * @date 2019/5/20
+ * Created by joybar on 2019/2/12.
  */
 public class DownloadProgressInterceptor implements Interceptor {
 	private IResponseCallBackHandler responseCallBackHandler;

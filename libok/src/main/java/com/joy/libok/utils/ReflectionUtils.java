@@ -5,9 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * @author Joy
- * @description
- * @date 2019/5/16
+ * 主要根据请求的时间戳判断，是否需要丢弃response，实质上是把code置为一个无效值
+ * Created by joybar on 2019/2/12.
  */
 public class ReflectionUtils {
 

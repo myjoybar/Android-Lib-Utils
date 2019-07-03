@@ -12,7 +12,7 @@ public interface IResponseCallBackHandler {
 
 	void onFailure(int errorCode, String errorMsg);
 
-	void onProgress(long totalBytes,long currentBytes);
+	void onProgress(long totalBytes, long currentBytes);
 
 	void onFinish();
 

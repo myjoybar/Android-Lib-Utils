@@ -5,11 +5,12 @@ import com.joy.libok.client.OkClient;
 import com.joy.libok.configdata.OKConfigData;
 import com.joy.libok.request.DownloadBuilder;
 import com.joy.libok.request.GetRequestBuilder;
+import com.joy.libok.request.PostFormRequestBuilder;
 import com.joy.libok.request.PostRequestBuilder;
-
 import okhttp3.Call;
 import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
+import okhttp3.OkHttpClient.Builder;
 
 public class OkHttpManager {
 
@@ -37,7 +38,11 @@ public class OkHttpManager {
 		return new GetRequestBuilder(url);
 	}
 
-	public PostRequestBuilder post(String url) {
+	public PostFormRequestBuilder postForm(String url) {
+		return new PostFormRequestBuilder(url);
+	}
+
+	public PostRequestBuilder postBodyContent(String url) {
 		return new PostRequestBuilder(url);
 	}
 
@@ -88,6 +93,10 @@ public class OkHttpManager {
 
 	public long getInvalidRequestTimeStamp() {
 		return invalidRequestTimeStamp;
+	}
+
+	public Builder getOkBuilder() {
+		return OkClient.getInstance().getBuilder();
 	}
 
 }

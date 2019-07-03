@@ -10,9 +10,7 @@ import com.joy.libok.test.log.LLog;
 import java.io.File;
 
 /**
- * @author Joy
- * @description
- * @date 2019/5/20
+ * Created by tsy on 2016/11/24.
  */
 public class DownloadTask {
 	private static final String TAG = "DownloadTask2";
@@ -40,9 +38,8 @@ public class DownloadTask {
 		mDownloadResponseHandler = new DownloadResponseHandler() {
 			@Override
 			public void onStart(long totalBytes) {
-				LLog.d(TAG, "load onStart mTotalBytes= " + mTotalBytes);
 				mTotalBytes = mCompleteBytes + totalBytes;      //下载总bytes等于上次下载的bytes加上这次断点续传的总bytes
-
+				LLog.d(TAG, "load onStart mTotalBytes= " + mTotalBytes);
 				if (null != mDownloadTaskListener) {
 					mDownloadTaskListener.onStart(mUrl, mCompleteBytes, mTotalBytes);
 				}
@@ -70,7 +67,8 @@ public class DownloadTask {
 					mNextSaveBytes += mCompleteBytes + currentBytes - mCurrentBytes;        //叠加每次增加的bytes
 					mCurrentBytes = mCompleteBytes + currentBytes;      //当前已经下载好的bytes
 					if (null != mDownloadTaskListener) {
-						mDownloadTaskListener.onProgress(mUrl, mCurrentBytes, mTotalBytes);
+						//mDownloadTaskListener.onProgress(mUrl, mCurrentBytes, mTotalBytes);
+						mDownloadTaskListener.onProgress(mUrl, currentBytes, totalBytes);
 					}
 				} else if (mStatus == DownloadStatus.STATUS_PAUSE) {
 					mCompleteBytes = mCurrentBytes;
@@ -101,11 +99,12 @@ public class DownloadTask {
 
 	}
 
+
 	public void doStart(DownloadTaskListener mDownloadTaskListener) {
-		doStart(mDownloadTaskListener,false);
+		doStart(mDownloadTaskListener, false);
 	}
 
-	public void doStart(DownloadTaskListener mDownloadTaskListener,boolean forcedUpdated) {
+	public void doStart(DownloadTaskListener mDownloadTaskListener, boolean forcedUpdated) {
 		if (mStatus == DownloadStatus.STATUS_DOWNLOADING || mStatus == DownloadStatus.STATUS_FINISH) {
 			return;
 		}

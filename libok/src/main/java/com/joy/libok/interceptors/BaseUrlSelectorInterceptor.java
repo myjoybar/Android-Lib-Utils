@@ -1,10 +1,9 @@
 package com.joy.libok.interceptors;
 
-import com.joy.libok.configdata.OKConfigData;
-
 import java.io.IOException;
 import java.util.List;
 
+import com.joy.libok.configdata.OKConfigData;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;

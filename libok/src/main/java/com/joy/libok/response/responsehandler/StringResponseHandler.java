@@ -1,11 +1,11 @@
 package com.joy.libok.response.responsehandler;
 
-import com.joy.libok.handler.OKGlobalHandler;
-import com.joy.libok.response.callback.IResponseCallBackHandler;
-import com.joy.libok.test.log.LLog;
 
 import java.io.IOException;
 
+import com.joy.libok.handler.OKGlobalHandler;
+import com.joy.libok.response.callback.IResponseCallBackHandler;
+import com.joy.libok.test.log.LLog;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 

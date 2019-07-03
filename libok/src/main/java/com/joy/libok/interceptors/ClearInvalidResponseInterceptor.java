@@ -2,19 +2,17 @@ package com.joy.libok.interceptors;
 
 import android.text.TextUtils;
 
-import com.joy.libok.OkHttpManager;
-import com.joy.libok.utils.ReflectionUtils;
-
 import java.io.IOException;
 
+import com.joy.libok.OkHttpManager;
+import com.joy.libok.utils.ReflectionUtils;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * @author Joy
- * @description 主要根据请求的时间戳判断，是否需要丢弃response，实质上是把code置为一个无效值
- * @date 2019/5/16
+ * 主要根据请求的时间戳判断，是否需要丢弃response，实质上是把code置为一个无效值
+ * Created by joybar on 2019/2/12.
  */
 public class ClearInvalidResponseInterceptor implements Interceptor {
 	private long requestStartTimeStamp;

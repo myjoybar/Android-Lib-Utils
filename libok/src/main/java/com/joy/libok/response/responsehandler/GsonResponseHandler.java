@@ -4,14 +4,14 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Types;
-import com.joy.libok.handler.OKGlobalHandler;
-import com.joy.libok.response.callback.IResponseCallBackHandler;
-import com.joy.libok.test.log.LLog;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import com.joy.libok.handler.OKGlobalHandler;
+import com.joy.libok.response.callback.IResponseCallBackHandler;
+import com.joy.libok.test.log.LLog;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 

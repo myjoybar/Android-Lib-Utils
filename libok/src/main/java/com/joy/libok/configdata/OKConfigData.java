@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.Cache;
 import okhttp3.CookieJar;
 import okhttp3.Interceptor;
 
@@ -13,12 +14,16 @@ public class OKConfigData {
 	private String urlHeadTag = "";
 	private HashMap<String, String> okHttpBaseUrlMap = new HashMap<>();
 	private HashMap<String, String> okHttpHeadersMap = new HashMap<>();
+	private HashMap<String, String> mockDataMap = new HashMap<>();
+
 	private int connectTimeout = 10;
 	private int readTimeout = 10;
 	private int writeTimeout = 10;
 	private boolean isPrintLog = true;
 	private List<Interceptor> interceptors = new ArrayList<>();
+	private List<Interceptor> netInterceptors = new ArrayList<>();
 	private CookieJar cookiesJar = CookieJar.NO_COOKIES;
+	private Cache cache;
 
 
 	public String getOkHttpBaseUrl() {
@@ -85,6 +90,14 @@ public class OKConfigData {
 		this.okHttpHeadersMap = okHttpHeadersMap;
 	}
 
+	public HashMap<String, String> getMockDataMap() {
+		return mockDataMap;
+	}
+
+	public void setMockDataMap(HashMap<String, String> mockDataMap) {
+		this.mockDataMap = mockDataMap;
+	}
+
 	public CookieJar getCookiesJar() {
 		return cookiesJar;
 	}
@@ -99,5 +112,21 @@ public class OKConfigData {
 
 	public void setInterceptors(List<Interceptor> interceptors) {
 		this.interceptors = interceptors;
+	}
+
+	public Cache getCache() {
+		return cache;
+	}
+
+	public void setCache(Cache cache) {
+		this.cache = cache;
+	}
+
+	public List<Interceptor> getNetInterceptors() {
+		return netInterceptors;
+	}
+
+	public void setNetInterceptors(List<Interceptor> netInterceptors) {
+		this.netInterceptors = netInterceptors;
 	}
 }

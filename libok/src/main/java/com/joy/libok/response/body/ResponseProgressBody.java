@@ -1,10 +1,9 @@
 package com.joy.libok.response.body;
 
-import com.joy.libok.handler.OKGlobalHandler;
-import com.joy.libok.response.callback.IResponseCallBackHandler;
-
 import java.io.IOException;
 
+import com.joy.libok.handler.OKGlobalHandler;
+import com.joy.libok.response.callback.IResponseCallBackHandler;
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 import okio.Buffer;
@@ -13,11 +12,7 @@ import okio.ForwardingSource;
 import okio.Okio;
 import okio.Source;
 
-/**
- * @author Joy
- * @description
- * @date 2019/5/20
- */
+
 public class ResponseProgressBody extends ResponseBody {
 	private ResponseBody mResponseBody;
 	private IResponseCallBackHandler mDownloadResponseHandler;
@@ -61,7 +56,9 @@ public class ResponseProgressBody extends ResponseBody {
 					OKGlobalHandler.getInstance().post(new Runnable() {
 						@Override
 						public void run() {
-							//mDownloadResponseHandler.onProgress(totalBytesRead, mResponseBody.contentLength());
+
+							//LLog.d("ResponseProgressBody", "onResponse totalBytesRead"+totalBytesRead+"， mResponseBody.contentLength() = "+mResponseBody.contentLength());
+							mDownloadResponseHandler.onProgress(mResponseBody.contentLength(),totalBytesRead);
 						}
 					});
 				}
